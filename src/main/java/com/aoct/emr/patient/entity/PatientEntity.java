@@ -80,7 +80,7 @@ public class PatientEntity {
 
     private double outStandingBalance;
 
-
+    @Column(columnDefinition = "bytea")
     private byte[] profileImage;
 
 

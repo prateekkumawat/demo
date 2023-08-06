@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.aoct.emr.provider.entity.ProviderEntity;
 
 @Repository
-public interface ProviderRepo extends JpaRepository<ProviderEntity,String> {
+public interface ProviderRepo extends JpaRepository<ProviderEntity,Long> {
 
 }

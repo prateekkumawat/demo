@@ -48,6 +48,7 @@ public class ProviderHelper {
 
 	public static ProviderUiResponse convertToProviderUiResponse(ProviderEntity provider) {
 	ProviderUiResponse uiResponse=new ProviderUiResponse();
+		uiResponse.setProviderId(provider.getProviderId());
 		uiResponse.setFirstName(provider.getFirstName());
 		uiResponse.setLastName(provider.getLastName());
 		uiResponse.setPrefix(provider.getPrefix());

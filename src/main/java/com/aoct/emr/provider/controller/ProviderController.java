@@ -23,7 +23,7 @@ public class ProviderController {
    ProviderBl bl;
    
    @PostMapping("/createProvider")
-   public String addProviderDetails(@RequestBody ProviderUIRequest providerUIRequest) {
+   public Long addProviderDetails(@RequestBody ProviderUIRequest providerUIRequest) {
 
 		return bl.createProvider(providerUIRequest);
 
@@ -35,7 +35,7 @@ public class ProviderController {
         return bl.searchProvider(npiNumber);
     }
     @GetMapping("/getProviderDetail/{providerId}")
-    public ProviderUiResponse getProviderDetail(String providerId){
+    public ProviderUiResponse getProviderDetail(@PathVariable Long providerId){
         return bl.getProviderDetail(providerId);
     }
 

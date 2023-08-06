@@ -16,7 +16,7 @@ public class ProviderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "providerId")
-	private String providerId;
+	private Long providerId;
 	private String firstName;
 	private String lastName;
 	private String prefix;

@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class ProviderUIRequest {
 	
-	private String providerId;
+	private Long providerId;
 	private String firstName;
 	private String lastName;
 	private String prefix;

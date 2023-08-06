@@ -25,10 +25,10 @@ public class ProviderBl {
     }
 
 
-	public String createProvider(ProviderUIRequest providerUIRequest) {
+	public Long createProvider(ProviderUIRequest providerUIRequest) {
 		
 		 ProviderEntity p = ProviderHelper.convertFromProviderRequest(providerUIRequest);
-		 String providerId=service.createProvider(p);
+		 Long providerId=service.createProvider(p);
 
 		         return providerId;
 	}
@@ -38,7 +38,7 @@ public class ProviderBl {
 		return null;
 	}
 
-	public ProviderUiResponse getProviderDetail(String providerId) {
+	public ProviderUiResponse getProviderDetail(Long providerId) {
 		ProviderEntity provider=service.getProviderDetail(providerId);
 		ProviderUiResponse response=ProviderHelper.convertToProviderUiResponse(provider);
 		return  response;

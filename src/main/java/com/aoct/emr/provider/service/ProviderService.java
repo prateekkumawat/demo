@@ -24,24 +24,17 @@ public class ProviderService {
         return referringProvider;
     }
 
-	public String createProvider(ProviderEntity provider) {
+	public Long createProvider(ProviderEntity provider) {
 		
         ProviderEntity p=providerRepo.save(provider);
 
-        if(p==null){
-
-            return null;
-
-        }
-
-        else{
-
-            return p.getProviderId();
-
-        }
+      if(p!=null){
+          return p.getProviderId();
+      }
+      return null;
 	}
 
-    public ProviderEntity getProviderDetail(String providerId) {
+    public ProviderEntity getProviderDetail(Long providerId) {
         ProviderEntity p=providerRepo.getById(providerId);
         if(p!=null){
             return p;

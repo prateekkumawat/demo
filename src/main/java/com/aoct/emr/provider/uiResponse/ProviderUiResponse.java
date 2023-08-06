@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 public class ProviderUiResponse {
-    private String providerId;
+    private Long providerId;
     private String firstName;
     private String lastName;
     private String prefix;
