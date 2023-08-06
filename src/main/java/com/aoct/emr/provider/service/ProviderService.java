@@ -1,14 +1,17 @@
 package com.aoct.emr.provider.service;
 
 
+
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.aoct.emr.provider.entity.ProviderEntity;
 import com.aoct.emr.provider.entity.ReferringProvider;
 import com.aoct.emr.provider.repository.ProviderRepo;
 import com.aoct.emr.provider.repository.ReferringProviderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class ProviderService {

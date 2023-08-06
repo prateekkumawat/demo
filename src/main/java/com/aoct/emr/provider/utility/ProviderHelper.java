@@ -1,11 +1,14 @@
 package com.aoct.emr.provider.utility;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.aoct.emr.provider.entity.ProviderEntity;
+import com.aoct.emr.provider.externalResponseModel.ExternalServiceResponseModel;
 import com.aoct.emr.provider.uiRequest.ProviderUIRequest;
 import com.aoct.emr.provider.uiResponse.ProviderUiResponse;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ProviderHelper {
 
@@ -91,5 +94,26 @@ public class ProviderHelper {
 			listOfProviderUIResponse.add(providerUiResponse);
 		}
 	return  listOfProviderUIResponse;
+	}
+
+	public static void checkConflictAddProvider(ProviderUIRequest providerUIRequest,
+			ExternalServiceResponseModel externalNpiCallResponse) {
+		// TODO Auto-generated method stub
+		
+		Map<String ,String> hm = new HashMap<String,String>();
+		externalNpiCallResponse.getResults().forEach(result->result.getTaxonomies().forEach(taxonomy->{hm.put(taxonomy.getCode(), taxonomy.getLicense());}));
+		
+		if(!hm.containsKey(providerUIRequest.getTaxonomyCode())){
+			throw new RuntimeException("taxonomy code mismatch");
+		}
+		else 
+		{
+			if(!providerUIRequest.getSpecialLicense().equals(hm.get(providerUIRequest.getTaxonomyCode())))
+			{
+				throw new RuntimeException("Licence details Mismatch");
+			}
+			
+		}
+		
 	}
 }
