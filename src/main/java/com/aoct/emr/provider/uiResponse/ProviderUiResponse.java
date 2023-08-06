@@ -3,6 +3,8 @@ package com.aoct.emr.provider.uiResponse;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.List;
+
 @Data
 public class ProviderUiResponse {
     private String providerId;
@@ -35,4 +37,5 @@ public class ProviderUiResponse {
     private String taxIdType;
     private String taxId;
     private boolean sendProviderCredentials;
+    private List<ProviderUiResponse> providers;
 }

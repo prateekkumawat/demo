@@ -4,6 +4,7 @@ import com.aoct.emr.provider.entity.ProviderEntity;
 import com.aoct.emr.provider.uiRequest.ProviderUIRequest;
 import com.aoct.emr.provider.uiResponse.ProviderUiResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProviderHelper {
@@ -46,11 +47,48 @@ public class ProviderHelper {
 	}
 
 	public static ProviderUiResponse convertToProviderUiResponse(ProviderEntity provider) {
+	ProviderUiResponse uiResponse=new ProviderUiResponse();
+		uiResponse.setFirstName(provider.getFirstName());
+		uiResponse.setLastName(provider.getLastName());
+		uiResponse.setPrefix(provider.getPrefix());
+		uiResponse.setDegree(provider.getDegree());
+		uiResponse.setDateOfBirth(provider.getDateOfBirth());
+		uiResponse.setSsn(provider.getSsn());
+		uiResponse.setGender(provider.getGender());
+		uiResponse.setEmail(provider.getEmail());
+		uiResponse.setAddressLine1(provider.getAddressLine1());
+		uiResponse.setAddressLine2(provider.getAddressLine2());
+		uiResponse.setCity(provider.getCity());
+		uiResponse.setState(provider.getState());
+		uiResponse.setZipCode(provider.getZipCode());
+		uiResponse.setPrimaryNumber(provider.getPrimaryNumber());
+		uiResponse.setSecondaryNumber(provider.getSecondaryNumber());
+		uiResponse.setPrimaryPracticeLocation(provider.getPrimaryPracticeLocation());
+		uiResponse.setPagerCode(provider.getPagerCode());
+		uiResponse.setTaxonomyCode(provider.getTaxonomyCode());
+		uiResponse.setDeaNumber(provider.getDeaNumber());
+		uiResponse.setDeaStartDate(provider.getDeaStartDate());
+		uiResponse.setDeaEndDate(provider.getDeaEndDate());
+		uiResponse.setNpi(provider.getNpi());
+		uiResponse.setSpecialLicense(provider.getSpecialLicense());
+		uiResponse.setSpecialLicenseStartDate(provider.getSpecialLicenseStartDate());
+		uiResponse.setSpecialLicenseEndDate(provider.getSpecialLicenseEndDate());
+		uiResponse.setLicensingState(provider.getLicensingState());
+		uiResponse.setTaxId(provider.getTaxId());
+		uiResponse.setTaxIdType(provider.getTaxIdType());
+		uiResponse.setSendProviderCredentials(provider.isSendProviderCredentials());
+		return uiResponse;
 
-		return null;
+
 	}
 
 	public static List<ProviderUiResponse> ConvertToListOfProviderUiResponse(List<ProviderEntity> providers) {
-	return  null;
+		List<ProviderUiResponse> listOfProviderUIResponse=new ArrayList<ProviderUiResponse>();
+
+		for(ProviderEntity p:providers){
+			ProviderUiResponse providerUiResponse=convertToProviderUiResponse(p);
+			listOfProviderUIResponse.add(providerUiResponse);
+		}
+	return  listOfProviderUIResponse;
 	}
 }
