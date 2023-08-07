@@ -98,7 +98,6 @@ public class ProviderHelper {
 
 	public static void checkConflictAddProvider(ProviderUIRequest providerUIRequest,
 			ExternalServiceResponseModel externalNpiCallResponse) {
-		// TODO Auto-generated method stub
 		
 		Map<String ,String> hm = new HashMap<String,String>();
 		externalNpiCallResponse.getResults().forEach(result->result.getTaxonomies().forEach(taxonomy->{hm.put(taxonomy.getCode(), taxonomy.getLicense());}));
