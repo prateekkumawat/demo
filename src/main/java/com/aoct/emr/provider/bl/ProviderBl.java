@@ -31,10 +31,11 @@ public class ProviderBl {
 
 
 	public Long createProvider(ProviderUIRequest providerUIRequest) {
-		
-		 ProviderEntity p = ProviderHelper.convertFromProviderRequest(providerUIRequest);
-		 ExternalServiceResponseModel externalNpiCallResponse = externalService.callExternalNpiAPi(p.getNpi());
-			ProviderHelper.checkConflictAddProvider(providerUIRequest,externalNpiCallResponse);
+			 
+		 ExternalServiceResponseModel externalNpiCallResponse = externalService.callExternalNpiAPi(providerUIRequest.getNpi());
+			//ProviderUIRequest providerRequest = ProviderHelper.checkConflictAddProvider(providerUIRequest,externalNpiCallResponse);
+			//ProviderEntity p = ProviderHelper.convertFromProviderRequest(providerRequest);
+		 ProviderEntity p = ProviderHelper.convertFromProviderRequest(providerUIRequest); //to be deleted
 		 Long providerId=service.createProvider(p);
 
 		         return providerId;

@@ -46,5 +46,7 @@ public class ProviderEntity {
 	private String taxIdType;
 	private String taxId;
 	private boolean sendProviderCredentials;
+	private String providerStatus;
+	private String statusDescription;
 
 }

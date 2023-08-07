@@ -38,4 +38,6 @@ public class ProviderUiResponse {
     private String taxId;
     private boolean sendProviderCredentials;
     private List<ProviderUiResponse> providers;
+    private String providerStatus;
+	private String statusDescription;
 }

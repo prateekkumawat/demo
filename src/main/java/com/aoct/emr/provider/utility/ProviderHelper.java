@@ -45,6 +45,8 @@ public class ProviderHelper {
 		p.setTaxId(providerUIRequest.getTaxId());
 		p.setTaxIdType(providerUIRequest.getTaxIdType());
 		p.setSendProviderCredentials(providerUIRequest.isSendProviderCredentials());
+		p.setStatusDescription(providerUIRequest.getStatusDescription());
+		p.setProviderStatus(providerUIRequest.getProviderStatus());
 		
 		return p;
 	}
@@ -81,6 +83,8 @@ public class ProviderHelper {
 		uiResponse.setTaxId(provider.getTaxId());
 		uiResponse.setTaxIdType(provider.getTaxIdType());
 		uiResponse.setSendProviderCredentials(provider.isSendProviderCredentials());
+		uiResponse.setStatusDescription(provider.getStatusDescription());
+		uiResponse.setProviderStatus(provider.getProviderStatus());
 		return uiResponse;
 
 
@@ -96,23 +100,28 @@ public class ProviderHelper {
 	return  listOfProviderUIResponse;
 	}
 
-	public static void checkConflictAddProvider(ProviderUIRequest providerUIRequest,
+	public static ProviderUIRequest checkConflictAddProvider(ProviderUIRequest providerUIRequest,
 			ExternalServiceResponseModel externalNpiCallResponse) {
 		
 		Map<String ,String> hm = new HashMap<String,String>();
 		externalNpiCallResponse.getResults().forEach(result->result.getTaxonomies().forEach(taxonomy->{hm.put(taxonomy.getCode(), taxonomy.getLicense());}));
 		
 		if(!hm.containsKey(providerUIRequest.getTaxonomyCode())){
-			throw new RuntimeException("taxonomy code mismatch");
+
+			providerUIRequest.setProviderStatus("pending");
+			providerUIRequest.setStatusDescription("Taxonomy Mismatch");
 		}
 		else 
 		{
 			if(!providerUIRequest.getSpecialLicense().equals(hm.get(providerUIRequest.getTaxonomyCode())))
 			{
-				throw new RuntimeException("Licence details Mismatch");
+				providerUIRequest.setProviderStatus("pending");
+				providerUIRequest.setStatusDescription("License Mismatch");
 			}
 			
 		}
+		
+		return providerUIRequest;
 		
 	}
 }
