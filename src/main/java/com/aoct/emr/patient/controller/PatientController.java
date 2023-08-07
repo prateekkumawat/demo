@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/patient")
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST})
 public class PatientController {
 
 	@Autowired

@@ -1,23 +1,24 @@
 package com.aoct.emr.provider.controller;
 
-import com.aoct.emr.patient.uiRequest.PatientUiRequest;
-import com.aoct.emr.provider.bl.ProviderBl;
-import com.aoct.emr.provider.entity.ProviderEntity;
-import com.aoct.emr.provider.uiRequest.ProviderUIRequest;
+import java.util.List;
 
-import com.aoct.emr.provider.uiResponse.ProviderUiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.aoct.emr.provider.bl.ProviderBl;
+import com.aoct.emr.provider.uiRequest.ProviderUIRequest;
+import com.aoct.emr.provider.uiResponse.ProviderUiResponse;
 
 @RestController
 @RequestMapping("/provider")
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST})
 public class ProviderController {
    @Autowired
    ProviderBl bl;
