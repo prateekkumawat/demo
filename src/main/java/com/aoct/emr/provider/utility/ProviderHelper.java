@@ -124,14 +124,14 @@ public class ProviderHelper {
 		
 		if(!hm.containsKey(providerUIRequest.getTaxonomyCode())){
 
-			providerUIRequest.setProviderStatus("pending");
+			providerUIRequest.setProviderStatus("Pending");
 			providerUIRequest.setStatusDescription("Taxonomy Mismatch");
 		}
 		else 
 		{
 			if(!providerUIRequest.getSpecialLicense().equals(hm.get(providerUIRequest.getTaxonomyCode())))
 			{
-				providerUIRequest.setProviderStatus("pending");
+				providerUIRequest.setProviderStatus("Pending");
 				providerUIRequest.setStatusDescription("License Mismatch");
 			}
 			
