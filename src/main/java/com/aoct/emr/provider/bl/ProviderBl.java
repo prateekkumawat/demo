@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.aoct.emr.common.exception.InvalidNpiException;
 import com.aoct.emr.provider.entity.ProviderEntity;
 import com.aoct.emr.provider.entity.ReferringProvider;
 import com.aoct.emr.provider.externalResponseModel.ExternalServiceResponseModel;
@@ -33,9 +34,13 @@ public class ProviderBl {
 	public Long createProvider(ProviderUIRequest providerUIRequest) {
 			 
 		 ExternalServiceResponseModel externalNpiCallResponse = externalService.callExternalNpiAPi(providerUIRequest.getNpi());
-			//ProviderUIRequest providerRequest = ProviderHelper.checkConflictAddProvider(providerUIRequest,externalNpiCallResponse);
-			//ProviderEntity p = ProviderHelper.convertFromProviderRequest(providerRequest);
-		 ProviderEntity p = ProviderHelper.convertFromProviderRequest(providerUIRequest); //to be deleted
+		 if(externalNpiCallResponse.getResults()==null)
+		 {
+			 throw new InvalidNpiException("NPI number does not exist.Please retry with correct NPI");
+		 }
+		ProviderUIRequest providerRequest = ProviderHelper.checkConflictAddProvider(providerUIRequest,externalNpiCallResponse);
+		ProviderEntity p = ProviderHelper.convertFromProviderRequest(providerRequest);
+		// ProviderEntity p = ProviderHelper.convertFromProviderRequest(providerUIRequest); //to be deleted
 		 Long providerId=service.createProvider(p);
 
 		         return providerId;

@@ -1,5 +1,6 @@
 package com.aoct.emr.provider.utility;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,8 +46,22 @@ public class ProviderHelper {
 		p.setTaxId(providerUIRequest.getTaxId());
 		p.setTaxIdType(providerUIRequest.getTaxIdType());
 		p.setSendProviderCredentials(providerUIRequest.isSendProviderCredentials());
-		p.setStatusDescription(providerUIRequest.getStatusDescription());
-		p.setProviderStatus(providerUIRequest.getProviderStatus());
+		if(providerUIRequest.getDeaEndDate().isBefore(LocalDate.now())) {
+			p.setStatusDescription("Inactive as the DEA of this provider has expired");
+			p.setProviderStatus("Inactive");
+		}
+		if(providerUIRequest.getProviderStatus()!=null)
+		{
+			p.setStatusDescription(providerUIRequest.getStatusDescription());
+			p.setProviderStatus(providerUIRequest.getProviderStatus());
+		}
+		
+		if(p.getProviderStatus()==null) {
+			p.setStatusDescription("Active");
+			p.setProviderStatus("Active");
+		}
+		
+		
 		
 		return p;
 	}
@@ -103,6 +118,7 @@ public class ProviderHelper {
 	public static ProviderUIRequest checkConflictAddProvider(ProviderUIRequest providerUIRequest,
 			ExternalServiceResponseModel externalNpiCallResponse) {
 		
+		//this will hold map of taconomy code and its respective license
 		Map<String ,String> hm = new HashMap<String,String>();
 		externalNpiCallResponse.getResults().forEach(result->result.getTaxonomies().forEach(taxonomy->{hm.put(taxonomy.getCode(), taxonomy.getLicense());}));
 		
