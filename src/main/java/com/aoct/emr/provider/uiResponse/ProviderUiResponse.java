@@ -40,4 +40,5 @@ public class ProviderUiResponse {
     private List<ProviderUiResponse> providers;
     private String providerStatus;
 	private String statusDescription;
+	private String speciality;
 }

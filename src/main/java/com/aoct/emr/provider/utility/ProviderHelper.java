@@ -16,6 +16,7 @@ public class ProviderHelper {
 	public static ProviderEntity convertFromProviderRequest(ProviderUIRequest providerUIRequest) {
 		
 		ProviderEntity p = new ProviderEntity();
+		List<String> statusDescription= new ArrayList<String>();
 		
 		p.setFirstName(providerUIRequest.getFirstName());
 		p.setLastName(providerUIRequest.getLastName());
@@ -46,6 +47,7 @@ public class ProviderHelper {
 		p.setTaxId(providerUIRequest.getTaxId());
 		p.setTaxIdType(providerUIRequest.getTaxIdType());
 		p.setSendProviderCredentials(providerUIRequest.isSendProviderCredentials());
+		p.setSpeciality(providerUIRequest.getSpeciality());
 		if(providerUIRequest.getDeaEndDate().isBefore(LocalDate.now())) {
 			p.setStatusDescription("Inactive as the DEA of this provider has expired");
 			p.setProviderStatus("Inactive");
@@ -100,6 +102,7 @@ public class ProviderHelper {
 		uiResponse.setSendProviderCredentials(provider.isSendProviderCredentials());
 		uiResponse.setStatusDescription(provider.getStatusDescription());
 		uiResponse.setProviderStatus(provider.getProviderStatus());
+		uiResponse.setSpeciality(provider.getSpeciality());
 		return uiResponse;
 
 
@@ -133,6 +136,14 @@ public class ProviderHelper {
 			{
 				providerUIRequest.setProviderStatus("pending");
 				providerUIRequest.setStatusDescription("License Mismatch");
+			}
+			else
+			{
+		        StringBuilder concatenatedTaxonomies = new StringBuilder();
+				externalNpiCallResponse.getResults().forEach(result->result.getTaxonomies().forEach(taxonomy->{
+					concatenatedTaxonomies.append(taxonomy.getDesc());
+				}));
+				providerUIRequest.setSpeciality(concatenatedTaxonomies.toString());
 			}
 			
 		}

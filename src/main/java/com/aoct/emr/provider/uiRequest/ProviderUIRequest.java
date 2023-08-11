@@ -39,5 +39,6 @@ public class ProviderUIRequest {
 	private boolean sendProviderCredentials;
 	private String providerStatus;
 	private String statusDescription;
+	private String speciality;
 
 }
