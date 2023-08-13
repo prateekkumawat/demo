@@ -67,5 +67,17 @@ public class ProviderBl {
 
 
 	}
+
+
+	public List<String> getAllSpeciality() {
+
+		return service.getAllSpeciality();
+	}
+
+	public List<ProviderUiResponse> getProvidersBySpeciality(String speciality) {
+		List<ProviderEntity> providers=service.getProvidersBySpeciality(speciality);
+		List<ProviderUiResponse> response=ProviderHelper.ConvertToListOfProviderUiResponse(providers);
+		return  response;
+	}
 }
 

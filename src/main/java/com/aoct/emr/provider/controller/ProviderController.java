@@ -46,5 +46,16 @@ public class ProviderController {
     }
 
 
+    @GetMapping("/getAllSpeciality")
+    public List<String> getAllSpeciality(){
+       return bl.getAllSpeciality();
+    }
+
+
+
+    @GetMapping("getProvidersBySpeciality/{speciality}")
+    public List<ProviderUiResponse> getProvidersBySpeciality(@PathVariable String speciality){
+       return bl.getProvidersBySpeciality(speciality);
+    }
 }
 

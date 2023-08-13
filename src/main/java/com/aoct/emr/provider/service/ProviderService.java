@@ -51,4 +51,12 @@ public class ProviderService {
         return providers;
 
     }
+
+    public List<String> getAllSpeciality() {
+        return providerRepo.getAllSpeciality();
+    }
+
+    public List<ProviderEntity> getProvidersBySpeciality(String speciality) {
+        return providerRepo.getProvidersBySpeciality(speciality);
+    }
 }
