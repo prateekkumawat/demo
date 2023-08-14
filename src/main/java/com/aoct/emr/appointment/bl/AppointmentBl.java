@@ -31,4 +31,10 @@ public class AppointmentBl {
 		List<AppointmentUiResponse> response=AppointmentHelper.convertToListOfAppointmentUiResponse(appointments);
 		return response;
     }
+
+	public AppointmentUiResponse getAppointmentDetail(Long appointmentId) {
+		AppointmentEntity appointment=service.getAppointmentDetail(appointmentId);
+		AppointmentUiResponse response=AppointmentHelper.convertToBookAppointmentUiResponse(appointment);
+		return response;
+	}
 }

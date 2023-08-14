@@ -31,4 +31,8 @@ public class AppointmentService {
 		List<AppointmentEntity> appointments = repo.getProviderSchedule(date,providerId);
 		return appointments;
     }
+
+	public AppointmentEntity getAppointmentDetail(Long appointmentId) {
+		return repo.getReferenceById(appointmentId);
+	}
 }

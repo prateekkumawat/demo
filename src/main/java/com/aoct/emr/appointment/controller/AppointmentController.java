@@ -28,5 +28,11 @@ public class AppointmentController {
 	public List<AppointmentUiResponse> getProviderSchedule(@PathVariable  Long providerId, @PathVariable LocalDate date){
 		return bl.getProviderSchedule(providerId,date);
 	}
+	//getAppointmentDetails appId return app
+
+	@GetMapping("/getAppointmentDetail/{appointmentId}")
+	public AppointmentUiResponse getAppointmentDetail(@PathVariable Long appointmentId){
+		return bl.getAppointmentDetail(appointmentId);
+	}
 
 }
