@@ -11,7 +11,7 @@ import lombok.Setter;
 @Component
 @Getter
 @Setter
-public class BookAppointmentUiRequest {
+public class AppointmentUiRequest {
 
 	private Long appointmentId;
 	private Long patientId;

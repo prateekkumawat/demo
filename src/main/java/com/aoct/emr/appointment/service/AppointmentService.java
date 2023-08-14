@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 import com.aoct.emr.appointment.entity.AppointmentEntity;
 import com.aoct.emr.appointment.repo.AppointmentRepository;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Service
 public class AppointmentService {
 	
@@ -24,4 +27,8 @@ public class AppointmentService {
 		
 	}
 
+    public List<AppointmentEntity> getProviderSchedule(LocalDate date, Long providerId) {
+		List<AppointmentEntity> appointments = repo.getProviderSchedule(date,providerId);
+		return appointments;
+    }
 }

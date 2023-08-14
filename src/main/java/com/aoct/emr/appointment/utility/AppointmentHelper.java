@@ -1,11 +1,15 @@
 package com.aoct.emr.appointment.utility;
 
+import com.aoct.emr.appointment.UiResponse.AppointmentUiResponse;
 import com.aoct.emr.appointment.entity.AppointmentEntity;
-import com.aoct.emr.appointment.uiRequest.BookAppointmentUiRequest;
+import com.aoct.emr.appointment.uiRequest.AppointmentUiRequest;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AppointmentHelper {
 
-	public static AppointmentEntity convertFromBookAppointmentUiRequest(BookAppointmentUiRequest uiRequest) {
+	public static AppointmentEntity convertFromBookAppointmentUiRequest(AppointmentUiRequest uiRequest) {
 		// TODO Auto-generated method 
 		AppointmentEntity appointment = new AppointmentEntity();
 		appointment.setPatientId(uiRequest.getPatientId());
@@ -19,5 +23,27 @@ public class AppointmentHelper {
 		appointment.setSpeciality(uiRequest.getSpeciality());
 		return appointment;
 	}
+	public static AppointmentUiResponse convertToBookAppointmentUiResponse(AppointmentEntity appointment) {
+		// TODO Auto-generated method
+		AppointmentUiResponse response=new AppointmentUiResponse();
+		response.setPatientId(appointment.getPatientId());
+		response.setProviderId(appointment.getProviderId());
+		response.setReasonOfVisit(appointment.getReasonOfVisit());
+		response.setScheduleDate(appointment.getScheduleDate());
+		response.setScheduleStartTime(appointment.getScheduleStartTime());
+		response.setScheduleEndTime(appointment.getScheduleEndTime());
+		response.setTypeOfVisit(appointment.getTypeOfVisit());
+		response.setCurrentStatusOfVisit(appointment.getCurrentStatusOfVisit());
+		response.setSpeciality(appointment.getSpeciality());
+		return response;
+	}
 
+	public static List<AppointmentUiResponse> convertToListOfAppointmentUiResponse(List<AppointmentEntity> appointments) {
+	List<AppointmentUiResponse> listOfAppointmentResponse=new ArrayList<AppointmentUiResponse>();
+	for(AppointmentEntity appointment:appointments){
+		AppointmentUiResponse response=convertToBookAppointmentUiResponse(appointment);
+		listOfAppointmentResponse.add(response);
+	}
+	return listOfAppointmentResponse;
+	}
 }
