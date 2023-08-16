@@ -2,6 +2,7 @@ package com.aoct.emr.appointment.controller;
 
 import com.aoct.emr.appointment.UiResponse.AppointmentUiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import com.aoct.emr.appointment.bl.AppointmentBl;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/appointment")
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST})
 public class AppointmentController {
 	
 	@Autowired
@@ -23,12 +25,23 @@ public class AppointmentController {
 		return bl.bookAppointment(uiRequest);
 	}
 
-	//getProviderSchedule
+
 	@GetMapping("/getProviderSchedule/{providerId}/{date}")
-	public List<AppointmentUiResponse> getProviderSchedule(@PathVariable  Long providerId, @PathVariable LocalDate date){
-		return bl.getProviderSchedule(providerId,date);
+	public List<AppointmentUiResponse> getProviderSchedule(@PathVariable Long providerId,@PathVariable LocalDate date)
+
+	{
+
+
+			return bl.getProviderSchedule(providerId, date);
+
+
+
 	}
-	//getAppointmentDetails appId return app
+
+	@GetMapping("/getProviderSchedule/{date}")
+	public List<AppointmentUiResponse> getProviderSchedule(@PathVariable LocalDate date){
+		return bl.getProviderSchedule(date);
+	}
 
 	@GetMapping("/getAppointmentDetail/{appointmentId}")
 	public AppointmentUiResponse getAppointmentDetail(@PathVariable Long appointmentId){

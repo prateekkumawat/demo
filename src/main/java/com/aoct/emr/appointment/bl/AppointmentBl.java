@@ -37,4 +37,11 @@ public class AppointmentBl {
 		AppointmentUiResponse response=AppointmentHelper.convertToBookAppointmentUiResponse(appointment);
 		return response;
 	}
+
+	public List<AppointmentUiResponse> getProviderSchedule(LocalDate date) {
+		List<AppointmentEntity> appointments= service.getProviderSchedule(date);
+
+		List<AppointmentUiResponse> response=AppointmentHelper.convertToListOfAppointmentUiResponse(appointments);
+		return response;
+	}
 }

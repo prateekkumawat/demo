@@ -26,6 +26,7 @@ public class AppointmentHelper {
 	public static AppointmentUiResponse convertToBookAppointmentUiResponse(AppointmentEntity appointment) {
 		// TODO Auto-generated method
 		AppointmentUiResponse response=new AppointmentUiResponse();
+		response.setAppointmentId(appointment.getAppointmentId());
 		response.setPatientId(appointment.getPatientId());
 		response.setProviderId(appointment.getProviderId());
 		response.setReasonOfVisit(appointment.getReasonOfVisit());

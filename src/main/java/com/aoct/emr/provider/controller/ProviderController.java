@@ -24,6 +24,7 @@ public class ProviderController {
    ProviderBl bl;
    
    @PostMapping("/createProvider")
+   @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST})
    public Long addProviderDetails(@RequestBody ProviderUIRequest providerUIRequest) {
 
 		return bl.createProvider(providerUIRequest);

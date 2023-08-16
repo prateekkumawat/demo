@@ -14,4 +14,7 @@ public interface AppointmentRepository extends JpaRepository<AppointmentEntity, 
 
     @Query("SELECT a FROM AppointmentEntity a WHERE a.providerId = :providerId AND a.scheduleDate = :date")
     List<AppointmentEntity> getProviderSchedule(LocalDate date, Long providerId);
+
+    @Query("SELECT a FROM AppointmentEntity a WHERE a.scheduleDate = :date")
+    List<AppointmentEntity> getProviderSchedule(LocalDate date);
 }
