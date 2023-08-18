@@ -10,7 +10,10 @@ import com.aoct.emr.appointment.uiRequest.AppointmentUiRequest;
 import com.aoct.emr.appointment.utility.AppointmentHelper;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 public class AppointmentBl {
@@ -40,8 +43,16 @@ public class AppointmentBl {
 
 	public List<AppointmentUiResponse> getProviderSchedule(LocalDate date) {
 		List<AppointmentEntity> appointments= service.getProviderSchedule(date);
+		List<AppointmentEntity> sortedAppointmentList = appointments.stream()
+				.sorted(Comparator.comparing(AppointmentEntity::getScheduleStartTime))
+				.collect(Collectors.toList());
 
-		List<AppointmentUiResponse> response=AppointmentHelper.convertToListOfAppointmentUiResponse(appointments);
+		List<AppointmentUiResponse> response=AppointmentHelper.convertToListOfAppointmentUiResponse(sortedAppointmentList);
 		return response;
+	}
+
+	public List<LocalDate> getAppointmentsByMonth(int month, int year) {
+		List<LocalDate> availableAppointmentDates=service.getAppointmentsByMonth(month,year);
+		return 	availableAppointmentDates;
 	}
 }

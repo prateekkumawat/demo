@@ -10,6 +10,7 @@ import com.aoct.emr.appointment.uiRequest.AppointmentUiRequest;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/appointment")
@@ -31,10 +32,7 @@ public class AppointmentController {
 
 	{
 
-
 			return bl.getProviderSchedule(providerId, date);
-
-
 
 	}
 
@@ -46,6 +44,11 @@ public class AppointmentController {
 	@GetMapping("/getAppointmentDetail/{appointmentId}")
 	public AppointmentUiResponse getAppointmentDetail(@PathVariable Long appointmentId){
 		return bl.getAppointmentDetail(appointmentId);
+	}
+
+	@GetMapping("/getAppointmentsByMonth/{month}/{year}")
+	public List<LocalDate> getAppointmentsByMonth(@PathVariable int month,@PathVariable int year){
+		return bl.getAppointmentsByMonth(month,year);
 	}
 
 }

@@ -39,4 +39,9 @@ public class AppointmentService {
 	public List<AppointmentEntity> getProviderSchedule(LocalDate date) {
 		return repo.getProviderSchedule(date);
 	}
+
+	public List<LocalDate> getAppointmentsByMonth(int month, int year) {
+		List<LocalDate> dates=repo.findByMonth(month,year);
+		return dates;
+	}
 }

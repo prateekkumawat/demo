@@ -13,7 +13,9 @@ public class AppointmentHelper {
 		// TODO Auto-generated method 
 		AppointmentEntity appointment = new AppointmentEntity();
 		appointment.setPatientId(uiRequest.getPatientId());
+		appointment.setPatientName(uiRequest.getPatientName());
 		appointment.setProviderId(uiRequest.getProviderId());
+		appointment.setProviderName(uiRequest.getProviderName());
 		appointment.setReasonOfVisit(uiRequest.getReasonOfVisit());
 		appointment.setScheduleDate(uiRequest.getScheduleDate());
 		appointment.setScheduleStartTime(uiRequest.getScheduleStartTime());
@@ -28,7 +30,9 @@ public class AppointmentHelper {
 		AppointmentUiResponse response=new AppointmentUiResponse();
 		response.setAppointmentId(appointment.getAppointmentId());
 		response.setPatientId(appointment.getPatientId());
+		response.setPatientName(appointment.getPatientName());
 		response.setProviderId(appointment.getProviderId());
+		response.setProviderName(appointment.getProviderName());
 		response.setReasonOfVisit(appointment.getReasonOfVisit());
 		response.setScheduleDate(appointment.getScheduleDate());
 		response.setScheduleStartTime(appointment.getScheduleStartTime());

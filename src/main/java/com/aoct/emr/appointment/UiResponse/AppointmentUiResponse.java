@@ -13,7 +13,9 @@ import java.time.LocalTime;
 public class AppointmentUiResponse {
     private Long appointmentId;
     private Long patientId;
+    private String patientName;
     private Long providerId;
+    private String providerName;
     private String typeOfVisit;
     private String speciality;
     private String currentStatusOfVisit;
