@@ -34,7 +34,7 @@ public class ProviderBl {
 	public Long createProvider(ProviderUIRequest providerUIRequest) {
 			 
 		 ExternalServiceResponseModel externalNpiCallResponse = externalService.callExternalNpiAPi(providerUIRequest.getNpi());
-		 if(externalNpiCallResponse.getResults()==null)
+		 if(externalNpiCallResponse.getResults()<1)
 		 {
 			 throw new InvalidNpiException("NPI number does not exist.Please retry with correct NPI");
 		 }
