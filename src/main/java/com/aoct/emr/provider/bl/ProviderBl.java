@@ -70,7 +70,7 @@ public class ProviderBl implements Serializable {
 
 	}
 
-	@Cacheable("providerListCache")
+	
 	public List<ProviderUiResponse> getAllProviderDetails() {
 		System.out.println("Method Invoked");
 		List<ProviderEntity> providers=service.getAllProviderDetails();
