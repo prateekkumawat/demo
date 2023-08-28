@@ -1,9 +1,12 @@
 package com.aoct.emr.provider.bl;
 
 
+import java.io.Serializable;
 import java.util.List;
 
+import com.aoct.emr.common.exception.DuplicateProviderException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import com.aoct.emr.common.exception.InvalidNpiException;
@@ -17,7 +20,7 @@ import com.aoct.emr.provider.uiResponse.ProviderUiResponse;
 import com.aoct.emr.provider.utility.ProviderHelper;
 
 @Component
-public class ProviderBl {
+public class ProviderBl implements Serializable {
 
     @Autowired
     ProviderService service;
@@ -34,10 +37,17 @@ public class ProviderBl {
 	public Long createProvider(ProviderUIRequest providerUIRequest) {
 			 
 		 ExternalServiceResponseModel externalNpiCallResponse = externalService.callExternalNpiAPi(providerUIRequest.getNpi());
-		 if(externalNpiCallResponse.getResults()==null)
+		 if(externalNpiCallResponse.getResults()==null || externalNpiCallResponse.getResults().size()<1 )
 		 {
 			 throw new InvalidNpiException("NPI number does not exist.Please retry with correct NPI");
 		 }
+		String npi = providerUIRequest.getNpi();
+		String firstName = providerUIRequest.getFirstName();
+		String lastName = providerUIRequest.getLastName();
+		List<ProviderEntity> existingProviders = service.findProvidersByNpiAndName(npi, firstName, lastName);
+		if (!existingProviders.isEmpty()) {
+			throw new DuplicateProviderException("Provider with the same NPI and name already exists.");
+		}
 		ProviderUIRequest providerRequest = ProviderHelper.checkConflictAddProvider(providerUIRequest,externalNpiCallResponse);
 		ProviderEntity p = ProviderHelper.convertFromProviderRequest(providerRequest);
 		// ProviderEntity p = ProviderHelper.convertFromProviderRequest(providerUIRequest); //to be deleted
@@ -58,8 +68,9 @@ public class ProviderBl {
 
 	}
 
+	@Cacheable("providerListCache")
 	public List<ProviderUiResponse> getAllProviderDetails() {
-
+		System.out.println("Method Invoked");
 		List<ProviderEntity> providers=service.getAllProviderDetails();
 
 		List<ProviderUiResponse> response=ProviderHelper.ConvertToListOfProviderUiResponse(providers);

@@ -1,5 +1,8 @@
 package com.aoct.emr.patient.bl;
 
+import com.aoct.emr.appointment.UiResponse.AppointmentUiResponse;
+import com.aoct.emr.appointment.bl.AppointmentBl;
+import com.aoct.emr.appointment.service.AppointmentService;
 import com.aoct.emr.patient.entity.PatientEntity;
 import com.aoct.emr.patient.service.PatientService;
 import com.aoct.emr.patient.uiRequest.PatientUiRequest;
@@ -16,6 +19,9 @@ public class PatientBl {
 
     @Autowired
     PatientService service;
+
+    @Autowired
+    AppointmentBl appointmentBl;
 
 //    @Autowired
 //    ReadJsonFileService jsonService;
@@ -51,6 +57,9 @@ public class PatientBl {
 
         PatientUiResponse response=PatientHelper.convertToPatientUiResponse(p);
 
+       List<AppointmentUiResponse> appointmentUiResponseLIst= appointmentBl.getAppointmentByPatientId(patientId);
+       response.setAppointments(appointmentUiResponseLIst);
+
         //  ReferringProvider referringProvider = referringService.getReferringProviderById(p.getNpiId());
 
         // ReferringProviderUiResponse referringProviderUiResponse=PatientHelper.convertToReferringProviderUiResponse(referringProvider);
@@ -60,6 +69,7 @@ public class PatientBl {
         //response.setReferringProvider(referringProviderUiResponse);
 
         // response.setReferringProvider(new com.mynx.mica.patient.uiResponse.ReferringProviderUiResponse());
+
 
         return response;
 

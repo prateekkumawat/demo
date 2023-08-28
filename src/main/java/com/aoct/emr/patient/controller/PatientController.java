@@ -32,7 +32,7 @@ public class PatientController {
 	@GetMapping("/getPatientDetails/{patientId}")
 	public PatientUiResponse getPatientDetails(@PathVariable Long patientId) {
 
-		System.out.println("Testing");
+
 
 		return bl.getPatientDetails(patientId);
 

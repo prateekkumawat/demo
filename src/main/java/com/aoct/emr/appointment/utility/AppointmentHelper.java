@@ -12,6 +12,7 @@ public class AppointmentHelper {
 	public static AppointmentEntity convertFromBookAppointmentUiRequest(AppointmentUiRequest uiRequest) {
 		// TODO Auto-generated method 
 		AppointmentEntity appointment = new AppointmentEntity();
+		appointment.setAppointmentId(uiRequest.getAppointmentId());
 		appointment.setPatientId(uiRequest.getPatientId());
 		appointment.setPatientName(uiRequest.getPatientName());
 		appointment.setProviderId(uiRequest.getProviderId());

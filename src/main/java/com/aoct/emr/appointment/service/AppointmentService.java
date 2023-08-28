@@ -44,4 +44,8 @@ public class AppointmentService {
 		List<LocalDate> dates=repo.findByMonth(month,year);
 		return dates;
 	}
+
+    public List<AppointmentEntity> getAppointmentByPatientId(Long patientId) {
+		return repo.findByPatientId(patientId);
+    }
 }

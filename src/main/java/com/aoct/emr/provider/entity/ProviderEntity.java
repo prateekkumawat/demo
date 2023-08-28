@@ -6,9 +6,11 @@ import io.swagger.v3.oas.annotations.tags.Tags;
 import jakarta.persistence.*;
 import lombok.Data;
 
+
 @Entity
 @Data
 @Table(name = "provider")
+
 public class ProviderEntity {
 	
     @Id
@@ -36,6 +38,7 @@ public class ProviderEntity {
 	private String deaNumber;//out of scope
 	private LocalDate deaStartDate;
 	private LocalDate deaEndDate;
+	@Column(name = "npi", unique = true)
 	private String npi;
 	private String specialLicense;
 	private LocalDate specialLicenseStartDate;

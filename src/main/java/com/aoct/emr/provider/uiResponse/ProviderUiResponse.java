@@ -1,12 +1,14 @@
 package com.aoct.emr.provider.uiResponse;
 
+import com.aoct.emr.appointment.UiResponse.AppointmentUiResponse;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
 @Data
-public class ProviderUiResponse {
+public class ProviderUiResponse implements Serializable {
     private Long providerId;
     private String firstName;
     private String lastName;
@@ -41,4 +43,5 @@ public class ProviderUiResponse {
     private String providerStatus;
 	private String statusDescription;
 	private String speciality;
+
 }

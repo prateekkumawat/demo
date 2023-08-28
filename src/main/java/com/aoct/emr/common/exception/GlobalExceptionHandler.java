@@ -12,5 +12,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleNpiNotFoundException(InvalidNpiException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
+    @ExceptionHandler(DuplicateProviderException.class)
+    public ResponseEntity<String> handleDuplicateProviderException(DuplicateProviderException ex){
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    }
 
 }

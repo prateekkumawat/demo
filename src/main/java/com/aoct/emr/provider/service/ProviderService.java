@@ -5,7 +5,9 @@ package com.aoct.emr.provider.service;
 
 import java.util.List;
 
+import com.aoct.emr.common.exception.DuplicateProviderException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import com.aoct.emr.provider.entity.ProviderEntity;
@@ -28,6 +30,7 @@ public class ProviderService {
     }
 
 	public Long createProvider(ProviderEntity provider) {
+
 		
         ProviderEntity p=providerRepo.save(provider);
 
@@ -58,5 +61,11 @@ public class ProviderService {
 
     public List<ProviderEntity> getProvidersBySpeciality(String speciality) {
         return providerRepo.getProvidersBySpeciality(speciality);
+    }
+
+    public List<ProviderEntity> findProvidersByNpiAndName(String npi, String firstName, String lastName) {
+       return  providerRepo.findProvidersByNpiAndName(npi, firstName, lastName);
+
+
     }
 }

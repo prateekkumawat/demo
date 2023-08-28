@@ -1,5 +1,6 @@
 package com.aoct.emr.patient.uiResponse;
 
+import com.aoct.emr.appointment.UiResponse.AppointmentUiResponse;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -47,6 +48,7 @@ public class PatientUiResponse {
     private String voicePermission;
     private String preferredModeOfCommunication;
     private boolean selfResponsibleflag;
+    private List<AppointmentUiResponse> appointments;
 
 //    private List<AttorneyUiResponse> attorney=new ArrayList<AttorneyUiResponse>();
 }
