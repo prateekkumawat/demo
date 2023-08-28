@@ -37,7 +37,9 @@ public class ProviderBl implements Serializable {
 	public Long createProvider(ProviderUIRequest providerUIRequest) {
 			 
 		 ExternalServiceResponseModel externalNpiCallResponse = externalService.callExternalNpiAPi(providerUIRequest.getNpi());
+
 		 if(externalNpiCallResponse.getResults()==null || externalNpiCallResponse.getResults().size()<1 )
+
 		 {
 			 throw new InvalidNpiException("NPI number does not exist.Please retry with correct NPI");
 		 }
