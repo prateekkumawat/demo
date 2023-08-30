@@ -8,6 +8,7 @@ import com.aoct.emr.appointment.entity.AppointmentEntity;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public interface AppointmentRepository extends JpaRepository<AppointmentEntity, Long>{
@@ -18,9 +19,12 @@ public interface AppointmentRepository extends JpaRepository<AppointmentEntity, 
     @Query("SELECT a FROM AppointmentEntity a WHERE a.scheduleDate = :date")
     List<AppointmentEntity> getProviderSchedule(LocalDate date);
 
-    @Query("SELECT DISTINCT a.scheduleDate FROM AppointmentEntity a WHERE MONTH(a.scheduleDate) = :month AND YEAR(a.scheduleDate) = :year")
-    List<LocalDate> findByMonth(int month, int year);
+    @Query("SELECT  a.scheduleDate FROM AppointmentEntity a WHERE MONTH(a.scheduleDate) = :month AND YEAR(a.scheduleDate) = :year")
+    Set<LocalDate> findByMonth(int month, int year);
 
     @Query
    List<AppointmentEntity> findByPatientId(Long patientId);
+
+    @Query("SELECT a FROM AppointmentEntity a WHERE a.providerId = :providerId AND MONTH(a.scheduleDate) = :month AND YEAR(a.scheduleDate) = :year")
+    List<AppointmentEntity> getProviderAppointmentByMonth(Long providerId, int month, int year);
 }

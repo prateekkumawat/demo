@@ -8,6 +8,7 @@ import com.aoct.emr.appointment.repo.AppointmentRepository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class AppointmentService {
@@ -40,12 +41,17 @@ public class AppointmentService {
 		return repo.getProviderSchedule(date);
 	}
 
-	public List<LocalDate> getAppointmentsByMonth(int month, int year) {
-		List<LocalDate> dates=repo.findByMonth(month,year);
+	public Set<LocalDate> getAppointmentsByMonth(int month, int year) {
+		Set<LocalDate> dates=repo.findByMonth(month,year);
 		return dates;
 	}
+
 
     public List<AppointmentEntity> getAppointmentByPatientId(Long patientId) {
 		return repo.findByPatientId(patientId);
     }
+
+	public List<AppointmentEntity> getProvideAppointmentsByMonth(Long providerId, int month, int year) {
+		return repo.getProviderAppointmentByMonth(providerId,month,year);
+	}
 }

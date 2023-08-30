@@ -50,12 +50,18 @@ public class AppointmentBl {
 		return response;
 	}
 
-	public List<LocalDate> getAppointmentsByMonth(int month, int year) {
-		List<LocalDate> availableAppointmentDates=service.getAppointmentsByMonth(month,year);
+	public Set<LocalDate> getAppointmentsByMonth(int month, int year) {
+		Set<LocalDate> availableAppointmentDates=service.getAppointmentsByMonth(month,year);
 		return 	availableAppointmentDates;
 	}
 	public List<AppointmentUiResponse> getAppointmentByPatientId(Long patientId){
 		List<AppointmentEntity> appointments=service.getAppointmentByPatientId(patientId);
+		List<AppointmentUiResponse> responses=AppointmentHelper.convertToListOfAppointmentUiResponse(appointments);
+		return responses;
+	}
+
+	public List<AppointmentUiResponse> getProviderAppointmentsByMonth(Long providerId, int month, int year) {
+		List<AppointmentEntity> appointments=service.getProvideAppointmentsByMonth(providerId,month,year);
 		List<AppointmentUiResponse> responses=AppointmentHelper.convertToListOfAppointmentUiResponse(appointments);
 		return responses;
 	}

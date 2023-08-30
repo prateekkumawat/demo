@@ -1,6 +1,7 @@
 package com.aoct.emr.appointment.controller;
 
 import com.aoct.emr.appointment.UiResponse.AppointmentUiResponse;
+import com.aoct.emr.appointment.uiRequest.ProviderAppointmentsRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
@@ -47,8 +48,13 @@ public class AppointmentController {
 	}
 
 	@GetMapping("/getAppointmentsByMonth/{month}/{year}")
-	public List<LocalDate> getAppointmentsByMonth(@PathVariable int month,@PathVariable int year){
+	public Set<LocalDate> getAppointmentsByMonth(@PathVariable int month,@PathVariable int year){
 		return bl.getAppointmentsByMonth(month,year);
+	}
+	
+	@PostMapping("/getProviderAppointmentsByMonth")
+	public List<AppointmentUiResponse> getProviderAppointmentsByMonth(@RequestBody ProviderAppointmentsRequest request) {
+		return bl.getProviderAppointmentsByMonth(request.getProviderId(), request.getMonth(), request.getYear());
 	}
 
 }
