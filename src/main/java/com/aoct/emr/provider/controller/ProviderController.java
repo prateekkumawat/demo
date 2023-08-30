@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.aoct.emr.provider.bl.ProviderBl;
 import com.aoct.emr.provider.uiRequest.ProviderUIRequest;
+import com.aoct.emr.provider.uiRequest.ProviderWorkingScheduleRequest;
 import com.aoct.emr.provider.uiResponse.ProviderUiResponse;
 
 @RestController
@@ -58,5 +59,11 @@ public class ProviderController {
     public List<ProviderUiResponse> getProvidersBySpeciality(@PathVariable String speciality){
        return bl.getProvidersBySpeciality(speciality);
     }
+    
+    @PostMapping("/addProviderWorkingSchedule")
+    public Long addProviderWorkingSchedule(@RequestBody ProviderWorkingScheduleRequest scheduleRequest) {
+        return bl.addProviderWorkingSchedule(scheduleRequest);
+    }
+
 }
 

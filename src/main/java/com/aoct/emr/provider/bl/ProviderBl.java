@@ -11,13 +11,17 @@ import org.springframework.stereotype.Component;
 
 import com.aoct.emr.common.exception.InvalidNpiException;
 import com.aoct.emr.provider.entity.ProviderEntity;
+import com.aoct.emr.provider.entity.ProviderWorkingScheduleEntity;
 import com.aoct.emr.provider.entity.ReferringProvider;
 import com.aoct.emr.provider.externalResponseModel.ExternalServiceResponseModel;
+import com.aoct.emr.provider.repository.ProviderRepo;
 import com.aoct.emr.provider.service.ExternalService;
 import com.aoct.emr.provider.service.ProviderService;
 import com.aoct.emr.provider.uiRequest.ProviderUIRequest;
+import com.aoct.emr.provider.uiRequest.ProviderWorkingScheduleRequest;
 import com.aoct.emr.provider.uiResponse.ProviderUiResponse;
 import com.aoct.emr.provider.utility.ProviderHelper;
+import com.aoct.emr.provider.utility.ProviderWorkingScheduleHelper;
 
 @Component
 public class ProviderBl implements Serializable {
@@ -27,6 +31,9 @@ public class ProviderBl implements Serializable {
     
     @Autowired
     ExternalService externalService;
+    
+    @Autowired
+    ProviderRepo providerRepo;
 
     public ReferringProvider getReferringProviderDetails(String npiNumber) {
         return service.getReferringProviderDetails(npiNumber);
@@ -92,5 +99,23 @@ public class ProviderBl implements Serializable {
 		List<ProviderUiResponse> response=ProviderHelper.ConvertToListOfProviderUiResponse(providers);
 		return  response;
 	}
+
+
+	public Long addProviderWorkingSchedule(ProviderWorkingScheduleRequest scheduleRequest) {
+	    ProviderEntity provider = providerRepo.getById(scheduleRequest.getProviderId());
+
+	    if (provider != null) {
+	        ProviderWorkingScheduleEntity scheduleEntity = ProviderWorkingScheduleHelper.convertFromWorkingScheduleRequest(scheduleRequest);
+	        scheduleEntity.setProvider(provider);
+	        provider.getWorkingSchedules().add(scheduleEntity);
+
+	        providerRepo.save(provider);
+
+	        return scheduleEntity.getScheduleId();
+	    }
+
+	    return null;
+	}
+
 }
 
