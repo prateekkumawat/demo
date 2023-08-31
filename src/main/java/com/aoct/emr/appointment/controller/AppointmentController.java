@@ -51,7 +51,7 @@ public class AppointmentController {
 	public Set<LocalDate> getAppointmentsByMonth(@PathVariable int month,@PathVariable int year){
 		return bl.getAppointmentsByMonth(month,year);
 	}
-	
+
 	@PostMapping("/getProviderAppointmentsByMonth")
 	public List<AppointmentUiResponse> getProviderAppointmentsByMonth(@RequestBody ProviderAppointmentsRequest request) {
 		return bl.getProviderAppointmentsByMonth(request.getProviderId(), request.getMonth(), request.getYear());
