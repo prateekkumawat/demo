@@ -16,6 +16,7 @@ import com.aoct.emr.provider.bl.ProviderBl;
 import com.aoct.emr.provider.uiRequest.ProviderUIRequest;
 import com.aoct.emr.provider.uiRequest.ProviderWorkingScheduleRequest;
 import com.aoct.emr.provider.uiResponse.ProviderUiResponse;
+import com.aoct.emr.provider.uiResponse.ProviderWorkingScheduleResponse;
 
 @RestController
 @RequestMapping("/provider")
@@ -64,6 +65,12 @@ public class ProviderController {
     public Long addProviderWorkingSchedule(@RequestBody ProviderWorkingScheduleRequest scheduleRequest) {
         return bl.addProviderWorkingSchedule(scheduleRequest);
     }
+    
+    @GetMapping("/getProviderWorkingSchedule/{providerId}")
+    public List<ProviderWorkingScheduleResponse> getProviderWorkingSchedule(@PathVariable Long providerId) {
+        return bl.getProviderWorkingSchedule(providerId);
+    }
+
 
 }
 

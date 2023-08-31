@@ -2,6 +2,9 @@ package com.aoct.emr.provider.bl;
 
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.aoct.emr.common.exception.DuplicateProviderException;
@@ -20,6 +23,7 @@ import com.aoct.emr.provider.service.ProviderService;
 import com.aoct.emr.provider.uiRequest.ProviderUIRequest;
 import com.aoct.emr.provider.uiRequest.ProviderWorkingScheduleRequest;
 import com.aoct.emr.provider.uiResponse.ProviderUiResponse;
+import com.aoct.emr.provider.uiResponse.ProviderWorkingScheduleResponse;
 import com.aoct.emr.provider.utility.ProviderHelper;
 import com.aoct.emr.provider.utility.ProviderWorkingScheduleHelper;
 
@@ -116,6 +120,24 @@ public class ProviderBl implements Serializable {
 
 	    return null;
 	}
+
+
+	public List<ProviderWorkingScheduleResponse> getProviderWorkingSchedule(Long providerId) {
+	    ProviderEntity provider = providerRepo.getById(providerId);
+	    if (provider != null) {
+	        List<ProviderWorkingScheduleResponse> scheduleResponses = new ArrayList<>();
+	        for (ProviderWorkingScheduleEntity scheduleEntity : provider.getWorkingSchedules()) {
+	            for (LocalDate workingDay : scheduleEntity.getWorkingDays()) {
+	                ProviderWorkingScheduleResponse scheduleResponse = ProviderWorkingScheduleHelper.convertToWorkingScheduleResponse(scheduleEntity);
+	                scheduleResponse.setWorkingDay(workingDay);
+	                scheduleResponses.add(scheduleResponse);
+	            }
+	        }
+	        return scheduleResponses;
+	    }
+	    return Collections.emptyList();
+	}
+
 
 }
 
