@@ -30,7 +30,12 @@ import com.aoct.emr.provider.utility.ProviderWorkingScheduleHelper;
 @Component
 public class ProviderBl implements Serializable {
 
-    @Autowired
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Autowired
     ProviderService service;
     
     @Autowired
@@ -122,21 +127,23 @@ public class ProviderBl implements Serializable {
 	}
 
 
-	public List<ProviderWorkingScheduleResponse> getProviderWorkingSchedule(Long providerId) {
-	    ProviderEntity provider = providerRepo.getById(providerId);
-	    if (provider != null) {
-	        List<ProviderWorkingScheduleResponse> scheduleResponses = new ArrayList<>();
-	        for (ProviderWorkingScheduleEntity scheduleEntity : provider.getWorkingSchedules()) {
-	            for (LocalDate workingDay : scheduleEntity.getWorkingDays()) {
-	                ProviderWorkingScheduleResponse scheduleResponse = ProviderWorkingScheduleHelper.convertToWorkingScheduleResponse(scheduleEntity);
-	                scheduleResponse.setWorkingDay(workingDay);
-	                scheduleResponses.add(scheduleResponse);
-	            }
-	        }
-	        return scheduleResponses;
-	    }
-	    return Collections.emptyList();
-	}
+	public List<ProviderWorkingScheduleResponse> getProviderWorkingSchedule(Long providerId, int year, int month) {
+        ProviderEntity provider = providerRepo.getById(providerId);
+        if (provider != null) {
+            List<ProviderWorkingScheduleResponse> scheduleResponses = new ArrayList<>();
+            for (ProviderWorkingScheduleEntity scheduleEntity : provider.getWorkingSchedules()) {
+                for (LocalDate workingDay : scheduleEntity.getWorkingDays()) {
+                    if (workingDay.getYear() == year && workingDay.getMonthValue() == month) {
+                        ProviderWorkingScheduleResponse scheduleResponse = ProviderWorkingScheduleHelper.convertToWorkingScheduleResponse(scheduleEntity);
+                        scheduleResponse.setWorkingDay(workingDay);
+                        scheduleResponses.add(scheduleResponse);
+                    }
+                }
+            }
+            return scheduleResponses;
+        }
+        return Collections.emptyList();
+    }
 
 
 }

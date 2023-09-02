@@ -24,34 +24,7 @@ public class ProviderWorkingScheduleHelper {
 
         return scheduleEntity;
     }
-
-	/*
-	 * public static ProviderWorkingScheduleRequest
-	 * convertToWorkingScheduleRequest(ProviderWorkingScheduleEntity scheduleEntity)
-	 * { ProviderWorkingScheduleRequest scheduleRequest = new
-	 * ProviderWorkingScheduleRequest();
-	 * scheduleRequest.setTitle(scheduleEntity.getTitle());
-	 * scheduleRequest.setFacility(scheduleEntity.getFacility());
-	 * scheduleRequest.setWorkingDays(scheduleEntity.getWorkingDays());
-	 * scheduleRequest.setStartTime(scheduleEntity.getStartTime());
-	 * scheduleRequest.setEndTime(scheduleEntity.getEndTime());
-	 * scheduleRequest.setLunchStartTime(scheduleEntity.getLunchStartTime());
-	 * scheduleRequest.setLunchEndTime(scheduleEntity.getLunchEndTime());
-	 * scheduleRequest.setApprovalFlag(scheduleEntity.isApprovalFlag());
-	 * scheduleRequest.setReasonForLeave(scheduleEntity.getReasonForLeave());
-	 * scheduleRequest.setScheduleType(scheduleEntity.getScheduleType());
-	 * scheduleRequest.setProviderId(scheduleEntity.getProvider().getProviderId());
-	 * 
-	 * return scheduleRequest; }
-	 * 
-	 * public static List<ProviderWorkingScheduleRequest>
-	 * convertToWorkingScheduleRequests(List<ProviderWorkingScheduleEntity>
-	 * scheduleEntities) { List<ProviderWorkingScheduleRequest> scheduleRequests =
-	 * new ArrayList<>(); for (ProviderWorkingScheduleEntity scheduleEntity :
-	 * scheduleEntities) {
-	 * scheduleRequests.add(convertToWorkingScheduleRequest(scheduleEntity)); }
-	 * return scheduleRequests; }
-	 */    
+   
     public static ProviderWorkingScheduleResponse convertToWorkingScheduleResponse(ProviderWorkingScheduleEntity scheduleEntity) {
         ProviderWorkingScheduleResponse scheduleResponse = new ProviderWorkingScheduleResponse();
         scheduleResponse.setStartTime(scheduleEntity.getStartTime());
