@@ -112,7 +112,9 @@ public class ProviderBl implements Serializable {
 
 
 	public Long addProviderWorkingSchedule(ProviderWorkingScheduleRequest scheduleRequest) {
-	    ProviderEntity provider = providerRepo.getById(scheduleRequest.getProviderId());
+
+	   // ProviderEntity provider = providerRepo.getById(scheduleRequest.getProviderId());
+		ProviderEntity provider=service.getProviderById(scheduleRequest.getProviderId());
 
 	    if (provider != null) {
 	        ProviderWorkingScheduleEntity scheduleEntity = ProviderWorkingScheduleHelper.convertFromWorkingScheduleRequest(scheduleRequest);
@@ -129,7 +131,8 @@ public class ProviderBl implements Serializable {
 
 
 	public List<ProviderWorkingScheduleResponse> getProviderWorkingSchedule(GetProviderWorkingScheduleUIReq request) {
-        ProviderEntity provider = providerRepo.getById(request.getProviderId());
+        //ProviderEntity provider = providerRepo.getById(request.getProviderId());
+		ProviderEntity provider=service.getProviderById(request.getProviderId());
         if (provider != null) {
             List<ProviderWorkingScheduleResponse> scheduleResponses = new ArrayList<>();
             for (ProviderWorkingScheduleEntity scheduleEntity : provider.getWorkingSchedules()) {
