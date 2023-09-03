@@ -10,11 +10,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aoct.emr.provider.bl.ProviderBl;
 import com.aoct.emr.provider.uiRequest.ProviderUIRequest;
+import com.aoct.emr.provider.uiRequest.ProviderWorkingScheduleRequest;
 import com.aoct.emr.provider.uiResponse.ProviderUiResponse;
+import com.aoct.emr.provider.uiResponse.ProviderWorkingScheduleResponse;
 
 @RestController
 @RequestMapping("/provider")
@@ -58,5 +61,19 @@ public class ProviderController {
     public List<ProviderUiResponse> getProvidersBySpeciality(@PathVariable String speciality){
        return bl.getProvidersBySpeciality(speciality);
     }
+    
+    @PostMapping("/addProviderWorkingSchedule")
+    public Long addProviderWorkingSchedule(@RequestBody ProviderWorkingScheduleRequest scheduleRequest) {
+        return bl.addProviderWorkingSchedule(scheduleRequest);
+    }
+    
+    @GetMapping("/getProviderWorkingSchedule/{providerId}")
+    public List<ProviderWorkingScheduleResponse> getProviderWorkingSchedule(@PathVariable Long providerId,
+            @RequestParam int year,
+            @RequestParam int month) {
+        return bl.getProviderWorkingSchedule(providerId, year, month);
+    }
+
+
 }
 

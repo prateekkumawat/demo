@@ -1,6 +1,8 @@
 package com.aoct.emr.provider.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import io.swagger.v3.oas.annotations.tags.Tags;
 import jakarta.persistence.*;
@@ -50,5 +52,9 @@ public class ProviderEntity {
 	private String providerStatus;
 	private String statusDescription;
 	private String speciality;
+	
+	@OneToMany(mappedBy = "provider", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<ProviderWorkingScheduleEntity> workingSchedules = new ArrayList<>();
+
 
 }
