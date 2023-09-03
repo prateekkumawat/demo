@@ -20,6 +20,7 @@ import com.aoct.emr.provider.externalResponseModel.ExternalServiceResponseModel;
 import com.aoct.emr.provider.repository.ProviderRepo;
 import com.aoct.emr.provider.service.ExternalService;
 import com.aoct.emr.provider.service.ProviderService;
+import com.aoct.emr.provider.uiRequest.GetProviderWorkingScheduleUIReq;
 import com.aoct.emr.provider.uiRequest.ProviderUIRequest;
 import com.aoct.emr.provider.uiRequest.ProviderWorkingScheduleRequest;
 import com.aoct.emr.provider.uiResponse.ProviderUiResponse;
@@ -127,13 +128,13 @@ public class ProviderBl implements Serializable {
 	}
 
 
-	public List<ProviderWorkingScheduleResponse> getProviderWorkingSchedule(Long providerId, int year, int month) {
-        ProviderEntity provider = providerRepo.getById(providerId);
+	public List<ProviderWorkingScheduleResponse> getProviderWorkingSchedule(GetProviderWorkingScheduleUIReq request) {
+        ProviderEntity provider = providerRepo.getById(request.getProviderId());
         if (provider != null) {
             List<ProviderWorkingScheduleResponse> scheduleResponses = new ArrayList<>();
             for (ProviderWorkingScheduleEntity scheduleEntity : provider.getWorkingSchedules()) {
                 for (LocalDate workingDay : scheduleEntity.getWorkingDays()) {
-                    if (workingDay.getYear() == year && workingDay.getMonthValue() == month) {
+                    if (workingDay.getYear() == request.getYear() && workingDay.getMonthValue() == request.getMonth()) {
                         ProviderWorkingScheduleResponse scheduleResponse = ProviderWorkingScheduleHelper.convertToWorkingScheduleResponse(scheduleEntity);
                         scheduleResponse.setWorkingDay(workingDay);
                         scheduleResponses.add(scheduleResponse);
