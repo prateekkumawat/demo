@@ -68,4 +68,9 @@ public class ProviderService {
 
 
     }
+
+
+    public ProviderEntity getProviderById(Long providerId) {
+        return providerRepo.getReferenceById(providerId);
+    }
 }
