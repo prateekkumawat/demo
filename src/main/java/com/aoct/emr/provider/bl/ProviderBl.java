@@ -120,6 +120,11 @@ public class ProviderBl implements Serializable {
 		LocalDate startDate=scheduleRequest.getStartDate();
 		LocalDate endDate=scheduleRequest.getEndDate();
 		List<DayOfWeek> days=scheduleRequest.getDays();
+		String listOfDays="";
+		for(DayOfWeek dayOfWeek:days){
+			listOfDays+=dayOfWeek+"|";
+
+		}
 
 		List<LocalDate> datesInRange=ProviderWorkingScheduleHelper.generateDatesInRange(startDate,endDate,days);
 		scheduleRequest.setWorkingDays(datesInRange);
@@ -128,6 +133,7 @@ public class ProviderBl implements Serializable {
 
 	    if (provider != null) {
 	        ProviderWorkingScheduleEntity scheduleEntity = ProviderWorkingScheduleHelper.convertFromWorkingScheduleRequest(scheduleRequest);
+			scheduleEntity.setListOfDays(listOfDays);
 	        scheduleEntity.setProvider(provider);
 	        provider.getWorkingSchedules().add(scheduleEntity);
 
@@ -160,6 +166,17 @@ public class ProviderBl implements Serializable {
     }
 
 
+	public List<ProviderWorkingScheduleResponse> getProviderSchedule(Long providerId) {
+		List<ProviderWorkingScheduleEntity> schedules=service.getProviderSchedule(providerId);
+		List<ProviderWorkingScheduleResponse> scheduleResponses = new ArrayList<>();
+		for (ProviderWorkingScheduleEntity schedule : schedules) {
 
+			ProviderWorkingScheduleResponse scheduleResponse = ProviderWorkingScheduleHelper.convertToWorkingScheduleResponse(schedule);
+
+
+			scheduleResponses.add(scheduleResponse);
+		}
+		return  scheduleResponses;
+	}
 }
 

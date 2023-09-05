@@ -74,9 +74,9 @@ public class ProviderController {
     }
 
 
-//    @GetMapping("/getProviderScheduleById/iderId}")
-//    public List<ProviderWorkingScheduleResponse> getProviderScheduleById(@PathVariable Long providerId){
-//       return bl.getProviderScheduleById(providerId);
-//    }
+    @GetMapping("/getProviderSchedule/{providerId}")
+    public List<ProviderWorkingScheduleResponse> getProviderSchedule(@PathVariable Long providerId){
+       return bl.getProviderSchedule(providerId);
+    }
 }
 

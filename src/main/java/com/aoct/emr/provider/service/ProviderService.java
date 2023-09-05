@@ -6,6 +6,7 @@ package com.aoct.emr.provider.service;
 import java.util.List;
 
 import com.aoct.emr.common.exception.DuplicateProviderException;
+import com.aoct.emr.provider.entity.ProviderWorkingScheduleEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
@@ -75,4 +76,7 @@ public class ProviderService {
     }
 
 
+    public List<ProviderWorkingScheduleEntity> getProviderSchedule(Long providerId) {
+        return providerRepo.getProviderSchedule(providerId);
+    }
 }
