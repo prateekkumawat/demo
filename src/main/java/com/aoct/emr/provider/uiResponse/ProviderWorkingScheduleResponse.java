@@ -1,6 +1,8 @@
 package com.aoct.emr.provider.uiResponse;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.List;
 
 import lombok.Data;
 
@@ -14,5 +16,11 @@ public class ProviderWorkingScheduleResponse {
     private boolean approvalFlag;
     private String reasonForLeave;
     private String scheduleType;
+
+    private String leaveStartTime;
+    private String leaveEndTime;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private List<DayOfWeek> days;
 }
 

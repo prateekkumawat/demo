@@ -68,11 +68,15 @@ public class ProviderController {
         return bl.addProviderWorkingSchedule(scheduleRequest);
     }
     
-    @PostMapping("/getProviderWorkingSchedule")
+    @PostMapping("/getProviderWorkingScheduleByDate")
     public List<ProviderWorkingScheduleResponse> getProviderWorkingSchedule(@RequestBody GetProviderWorkingScheduleUIReq request) {
         return bl.getProviderWorkingSchedule(request);
     }
 
 
+//    @GetMapping("/getProviderScheduleById/iderId}")
+//    public List<ProviderWorkingScheduleResponse> getProviderScheduleById(@PathVariable Long providerId){
+//       return bl.getProviderScheduleById(providerId);
+//    }
 }
 

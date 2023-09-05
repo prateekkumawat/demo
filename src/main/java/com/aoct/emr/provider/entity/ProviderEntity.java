@@ -14,10 +14,10 @@ import lombok.Data;
 @Table(name = "provider")
 
 public class ProviderEntity {
-	
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "providerId")
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "providerId")
 	private Long providerId;
 	private String firstName;
 	private String lastName;
@@ -36,7 +36,7 @@ public class ProviderEntity {
 	private String secondaryNumber;
 	private String primaryPracticeLocation;
 	private String pagerCode;
-	private String taxonomyCode; 
+	private String taxonomyCode;
 	private String deaNumber;//out of scope
 	private LocalDate deaStartDate;
 	private LocalDate deaEndDate;
@@ -52,9 +52,11 @@ public class ProviderEntity {
 	private String providerStatus;
 	private String statusDescription;
 	private String speciality;
-	
+
 	@OneToMany(mappedBy = "provider", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ProviderWorkingScheduleEntity> workingSchedules = new ArrayList<>();
 
 
-}
+	}
+
+
