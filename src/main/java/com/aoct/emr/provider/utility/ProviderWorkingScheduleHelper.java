@@ -41,6 +41,7 @@ public class ProviderWorkingScheduleHelper {
         scheduleResponse.setLeaveEndTime(scheduleEntity.getLeaveEndTime());
         scheduleResponse.setStartDate(scheduleEntity.getStartDate());
         scheduleResponse.setEndDate(scheduleEntity.getEndDate());
+        scheduleResponse.setTitle(scheduleEntity.getTitle());
 
         if(scheduleEntity.getListOfDays()!=null){
             String[] stringArray = scheduleEntity.getListOfDays().split("\\|");
