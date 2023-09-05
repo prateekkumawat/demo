@@ -3,6 +3,7 @@ package com.aoct.emr.provider.utility;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.aoct.emr.provider.entity.ProviderWorkingScheduleEntity;
@@ -36,6 +37,19 @@ public class ProviderWorkingScheduleHelper {
         scheduleResponse.setApprovalFlag(scheduleEntity.isApprovalFlag());
         scheduleResponse.setReasonForLeave(scheduleEntity.getReasonForLeave());
         scheduleResponse.setScheduleType(scheduleEntity.getScheduleType());
+        scheduleResponse.setLeaveStartTime(scheduleEntity.getLeaveStartTime());
+        scheduleResponse.setLeaveEndTime(scheduleEntity.getLeaveEndTime());
+        scheduleResponse.setStartDate(scheduleEntity.getStartDate());
+        scheduleResponse.setEndDate(scheduleEntity.getEndDate());
+
+        if(scheduleEntity.getListOfDays()!=null){
+            String[] stringArray = scheduleEntity.getListOfDays().split("\\|");
+
+            List<String> stringList = Arrays.asList(stringArray);
+
+            scheduleResponse.setListOfDays(stringList);
+        }
+
         return scheduleResponse;
     }
     public static List<LocalDate> generateDatesInRange(LocalDate startDate, LocalDate endDate, List<DayOfWeek> daysOfWeek) {

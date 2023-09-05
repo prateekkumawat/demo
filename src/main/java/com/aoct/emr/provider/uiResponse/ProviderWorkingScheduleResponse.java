@@ -21,6 +21,6 @@ public class ProviderWorkingScheduleResponse {
     private String leaveEndTime;
     private LocalDate startDate;
     private LocalDate endDate;
-    private List<DayOfWeek> days;
+    private List<String> listOfDays;;
 }
 

@@ -45,7 +45,7 @@ public class ProviderWorkingScheduleEntity {
     private String leaveEndTime;
     private LocalDate startDate;
     private LocalDate endDate;
-    private List<DayOfWeek> days;
+    private String listOfDays;
 
     @ManyToOne
     @JoinColumn(name = "providerId")
