@@ -2,7 +2,12 @@ package com.aoct.emr.provider.bl;
 
 
 import java.io.Serializable;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.aoct.emr.common.exception.DuplicateProviderException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,22 +16,36 @@ import org.springframework.stereotype.Component;
 
 import com.aoct.emr.common.exception.InvalidNpiException;
 import com.aoct.emr.provider.entity.ProviderEntity;
+import com.aoct.emr.provider.entity.ProviderWorkingScheduleEntity;
 import com.aoct.emr.provider.entity.ReferringProvider;
 import com.aoct.emr.provider.externalResponseModel.ExternalServiceResponseModel;
+import com.aoct.emr.provider.repository.ProviderRepo;
 import com.aoct.emr.provider.service.ExternalService;
 import com.aoct.emr.provider.service.ProviderService;
+import com.aoct.emr.provider.uiRequest.GetProviderWorkingScheduleUIReq;
 import com.aoct.emr.provider.uiRequest.ProviderUIRequest;
+import com.aoct.emr.provider.uiRequest.ProviderWorkingScheduleRequest;
 import com.aoct.emr.provider.uiResponse.ProviderUiResponse;
+import com.aoct.emr.provider.uiResponse.ProviderWorkingScheduleResponse;
 import com.aoct.emr.provider.utility.ProviderHelper;
+import com.aoct.emr.provider.utility.ProviderWorkingScheduleHelper;
 
 @Component
 public class ProviderBl implements Serializable {
 
-    @Autowired
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Autowired
     ProviderService service;
     
     @Autowired
     ExternalService externalService;
+    
+    @Autowired
+    ProviderRepo providerRepo;
 
     public ReferringProvider getReferringProviderDetails(String npiNumber) {
         return service.getReferringProviderDetails(npiNumber);
@@ -91,6 +110,73 @@ public class ProviderBl implements Serializable {
 		List<ProviderEntity> providers=service.getProvidersBySpeciality(speciality);
 		List<ProviderUiResponse> response=ProviderHelper.ConvertToListOfProviderUiResponse(providers);
 		return  response;
+	}
+
+
+	public Long addProviderWorkingSchedule(ProviderWorkingScheduleRequest scheduleRequest) {
+
+
+		ProviderEntity provider=service.getProviderById(scheduleRequest.getProviderId());
+		LocalDate startDate=scheduleRequest.getStartDate();
+		LocalDate endDate=scheduleRequest.getEndDate();
+		List<DayOfWeek> days=scheduleRequest.getDays();
+		String listOfDays="";
+		for(DayOfWeek dayOfWeek:days){
+			listOfDays+=dayOfWeek+"|";
+
+		}
+
+		List<LocalDate> datesInRange=ProviderWorkingScheduleHelper.generateDatesInRange(startDate,endDate,days);
+		scheduleRequest.setWorkingDays(datesInRange);
+
+
+
+	    if (provider != null) {
+	        ProviderWorkingScheduleEntity scheduleEntity = ProviderWorkingScheduleHelper.convertFromWorkingScheduleRequest(scheduleRequest);
+			scheduleEntity.setListOfDays(listOfDays);
+	        scheduleEntity.setProvider(provider);
+	        provider.getWorkingSchedules().add(scheduleEntity);
+
+	        providerRepo.save(provider);
+
+	        return scheduleEntity.getScheduleId();
+	    }
+
+	    return null;
+	}
+
+
+	public List<ProviderWorkingScheduleResponse> getProviderWorkingSchedule(GetProviderWorkingScheduleUIReq request) {
+        //ProviderEntity provider = providerRepo.getById(request.getProviderId());
+		ProviderEntity provider=service.getProviderById(request.getProviderId());
+        if (provider != null) {
+            List<ProviderWorkingScheduleResponse> scheduleResponses = new ArrayList<>();
+            for (ProviderWorkingScheduleEntity scheduleEntity : provider.getWorkingSchedules()) {
+                for (LocalDate workingDay : scheduleEntity.getWorkingDays()) {
+                    if (workingDay.getYear() == request.getYear() && workingDay.getMonthValue() == request.getMonth()) {
+                        ProviderWorkingScheduleResponse scheduleResponse = ProviderWorkingScheduleHelper.convertToWorkingScheduleResponse(scheduleEntity);
+                        scheduleResponse.setWorkingDay(workingDay);
+                        scheduleResponses.add(scheduleResponse);
+                    }
+                }
+            }
+            return scheduleResponses;
+        }
+        return Collections.emptyList();
+    }
+
+
+	public List<ProviderWorkingScheduleResponse> getProviderSchedule(Long providerId) {
+		List<ProviderWorkingScheduleEntity> schedules=service.getProviderSchedule(providerId);
+		List<ProviderWorkingScheduleResponse> scheduleResponses = new ArrayList<>();
+		for (ProviderWorkingScheduleEntity schedule : schedules) {
+
+			ProviderWorkingScheduleResponse scheduleResponse = ProviderWorkingScheduleHelper.convertToWorkingScheduleResponse(schedule);
+
+
+			scheduleResponses.add(scheduleResponse);
+		}
+		return  scheduleResponses;
 	}
 }
 

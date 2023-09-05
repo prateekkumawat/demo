@@ -1,5 +1,6 @@
 package com.aoct.emr.provider.repository;
 
+import com.aoct.emr.provider.entity.ProviderWorkingScheduleEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -22,4 +23,6 @@ public interface ProviderRepo extends JpaRepository<ProviderEntity,Long> {
     @Query("SELECT p FROM ProviderEntity p WHERE p.npi = :npi AND (p.firstName = :firstName OR p.lastName = :lastName)")
     List<ProviderEntity> findProvidersByNpiAndName(@Param("npi") String npi, @Param("firstName") String firstName, @Param("lastName") String lastName);
 
+    @Query("SELECT  s from ProviderWorkingScheduleEntity s where s.provider.providerId=:providerId")
+    List<ProviderWorkingScheduleEntity> getProviderSchedule(Long providerId);
 }
