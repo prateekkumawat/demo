@@ -1,5 +1,7 @@
 package com.aoct.emr.provider.utility;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +37,19 @@ public class ProviderWorkingScheduleHelper {
         scheduleResponse.setReasonForLeave(scheduleEntity.getReasonForLeave());
         scheduleResponse.setScheduleType(scheduleEntity.getScheduleType());
         return scheduleResponse;
+    }
+    public static List<LocalDate> generateDatesInRange(LocalDate startDate, LocalDate endDate, List<DayOfWeek> daysOfWeek) {
+        List<LocalDate> datesInRange = new ArrayList<>();
+        LocalDate currentDate = startDate;
+
+        while (!currentDate.isAfter(endDate)) {
+            if (daysOfWeek.contains(currentDate.getDayOfWeek())) {
+                datesInRange.add(currentDate);
+            }
+            currentDate = currentDate.plusDays(1);
+        }
+
+        return datesInRange;
     }
 
 }

@@ -2,10 +2,12 @@ package com.aoct.emr.provider.bl;
 
 
 import java.io.Serializable;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.aoct.emr.common.exception.DuplicateProviderException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,8 +115,16 @@ public class ProviderBl implements Serializable {
 
 	public Long addProviderWorkingSchedule(ProviderWorkingScheduleRequest scheduleRequest) {
 
-	   // ProviderEntity provider = providerRepo.getById(scheduleRequest.getProviderId());
+
 		ProviderEntity provider=service.getProviderById(scheduleRequest.getProviderId());
+		LocalDate startDate=scheduleRequest.getStartDate();
+		LocalDate endDate=scheduleRequest.getEndDate();
+		List<DayOfWeek> days=scheduleRequest.getDays();
+
+		List<LocalDate> datesInRange=ProviderWorkingScheduleHelper.generateDatesInRange(startDate,endDate,days);
+		scheduleRequest.setWorkingDays(datesInRange);
+
+
 
 	    if (provider != null) {
 	        ProviderWorkingScheduleEntity scheduleEntity = ProviderWorkingScheduleHelper.convertFromWorkingScheduleRequest(scheduleRequest);
@@ -148,6 +158,7 @@ public class ProviderBl implements Serializable {
         }
         return Collections.emptyList();
     }
+
 
 
 }

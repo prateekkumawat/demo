@@ -22,4 +22,5 @@ public interface ProviderRepo extends JpaRepository<ProviderEntity,Long> {
     @Query("SELECT p FROM ProviderEntity p WHERE p.npi = :npi AND (p.firstName = :firstName OR p.lastName = :lastName)")
     List<ProviderEntity> findProvidersByNpiAndName(@Param("npi") String npi, @Param("firstName") String firstName, @Param("lastName") String lastName);
 
+
 }
