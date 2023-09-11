@@ -29,6 +29,7 @@ public class ProviderWorkingScheduleHelper {
         scheduleEntity.setLeaveStartTime(scheduleRequest.getLeaveStartTime());
         scheduleEntity.setLeaveEndTime(scheduleRequest.getLeaveEndTime());
 
+
         return scheduleEntity;
     }
    
