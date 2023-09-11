@@ -24,6 +24,11 @@ public class ProviderWorkingScheduleHelper {
         scheduleEntity.setApprovalFlag(scheduleRequest.isApprovalFlag());
         scheduleEntity.setReasonForLeave(scheduleRequest.getReasonForLeave());
         scheduleEntity.setScheduleType(scheduleRequest.getScheduleType());
+        scheduleEntity.setStartDate(scheduleRequest.getStartDate());
+        scheduleEntity.setEndDate(scheduleRequest.getEndDate());
+        scheduleEntity.setLeaveStartTime(scheduleRequest.getLeaveStartTime());
+        scheduleEntity.setLeaveEndTime(scheduleRequest.getLeaveEndTime());
+
 
         return scheduleEntity;
     }
