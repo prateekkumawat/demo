@@ -14,7 +14,6 @@ public class PatientVitalsHelper {
     public static PatientVitals convertPatientVitalsUiRequest(PatientVitalsUiRequest request){
         PatientVitals v =new PatientVitals();
         v.setPatientId(request.getPatientId());
-        v.setBmi(request.getBmi());
         v.setHeight(request.getHeight());
         v.setWeight(request.getWeight());
         v.setBloodPressure(request.getBloodPressure());
@@ -23,14 +22,13 @@ public class PatientVitalsHelper {
         v.setO2Saturation(request.getO2Saturation());
         v.setRespirationRate(request.getRespirationRate());
         v.setPulseRate(request.getPulseRate());
+        v.setBmi(request.getBmi());
         return v;
     }
 
     public static PatientVitalsUiResponse convertPatientVitalsUiResponse(PatientVitals v){
         PatientVitalsUiResponse response=new PatientVitalsUiResponse();
 
-
-        response.setBmi(v.getBmi());
         response.setHeight(v.getHeight());
         response.setWeight(v.getWeight());
         response.setBloodPressure(v.getBloodPressure());
@@ -38,6 +36,9 @@ public class PatientVitalsHelper {
         response.setPulseRate(v.getPulseRate());
         response.setO2Saturation(v.getO2Saturation());
         response.setRespirationRate(v.getRespirationRate());
+        String bmi=bmiCalculator(v.getHeight(),v.getWeight());
+        response.setBmi(bmi);
+
         return response;
     }
 
@@ -50,5 +51,41 @@ public class PatientVitalsHelper {
 
         }
         return map;
+    }
+
+    public static String bmiCalculator(String height,String weight){
+        try {
+
+            double heightInInches;
+            double weightInPounds;
+
+            String[] heightParts = height.split(" ");
+            String[] weightParts = weight.split(" ");
+
+            if (heightParts.length != 2 || weightParts.length != 2) {
+                return "Invalid input";
+            }
+
+            if (heightParts[1].equalsIgnoreCase("in")) {
+                heightInInches = Double.parseDouble(heightParts[0]);
+            } else if (heightParts[1].equalsIgnoreCase("ft")) {
+                heightInInches = Double.parseDouble(heightParts[0]) * 12;
+            } else {
+                return "Invalid height unit";
+            }
+
+            if (weightParts[1].equalsIgnoreCase("lbs")) {
+                weightInPounds = Double.parseDouble(weightParts[0]);
+            } else {
+                return "Invalid weight unit";
+            }
+
+            double bmi = (weightInPounds * 703) / (heightInInches * heightInInches);
+
+            return String.format("%.2f", bmi);
+        } catch (NumberFormatException e) {
+            return "Invalid input";
+        }
+
     }
 }

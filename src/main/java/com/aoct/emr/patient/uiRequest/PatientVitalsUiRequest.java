@@ -10,10 +10,10 @@ public class PatientVitalsUiRequest {
     private LocalDate assessmentDate;
     private String weight;
     private String height;
-    private String bmi;
     private String bloodPressure;
     private String pulseRate;
     private String o2Saturation;
     private String temperature;
     private String respirationRate;
+    private String bmi;
 }
