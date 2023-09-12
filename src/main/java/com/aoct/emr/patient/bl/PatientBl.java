@@ -131,6 +131,8 @@ public class PatientBl {
     }
 
     public Long addVitalsForPatient(PatientVitalsUiRequest patientVitalsUiRequest) {
+        String bmi=PatientVitalsHelper.bmiCalculator(patientVitalsUiRequest.getHeight(),patientVitalsUiRequest.getWeight());
+        patientVitalsUiRequest.setBmi(bmi);
         PatientVitals v= PatientVitalsHelper.convertPatientVitalsUiRequest(patientVitalsUiRequest);
 
         Long vitalsId=patientVitalsService.addVitalsForPatient(v);
