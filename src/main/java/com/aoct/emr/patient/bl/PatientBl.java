@@ -142,7 +142,15 @@ public class PatientBl {
     public Map<LocalDate,PatientVitalsUiResponse> getVitalsForPatient(Long patientId) {
         List<PatientVitals> vitalslist=patientVitalsService.getVitalsForPatient(patientId);
         Map<LocalDate,PatientVitalsUiResponse> responses=PatientVitalsHelper.convertPatientVitalsListUiResponse(vitalslist);
-        return responses;
+        
+	List<Map.Entry<LocalDate, PatientVitalsUiResponse>> entryList = new ArrayList<>(responses.entrySet());
+        Collections.sort(entryList, (entry1, entry2) -> entry2.getKey().compareTo(entry1.getKey()));
+
+        Map<LocalDate, PatientVitalsUiResponse> sortedMap = entryList.stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+
+
+        return sortedMap;
     }
 
 
