@@ -119,8 +119,8 @@ public class PatientBl {
     public Long addAllergy(AllergyUiRequest allergyUiRequest) {
         Allergy a= AllergyHelper.convertAllergyUiRequest(allergyUiRequest);
 
-        Long allergyId=allergyService.addAllergy(a);
-        return allergyId;
+        Long patientAllergyId=allergyService.addAllergy(a);
+        return patientAllergyId;
     }
 
     public List<AllergyUiResponse> getPatientAllergy(Long patientId) {
