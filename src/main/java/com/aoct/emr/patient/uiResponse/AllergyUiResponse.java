@@ -6,10 +6,13 @@ import java.time.LocalDate;
 
 @Data
 public class AllergyUiResponse {
-    private Long allergyId;
+    private Long patientAllergyId;
+    private int allergyId;
     private Long patientId;
     private String reaction;
     private String severity;
     private LocalDate onset;
     private boolean activeAllergy;
+    private boolean drugAllergyFlag;
+    private String allergyName;
 }

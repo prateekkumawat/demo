@@ -20,7 +20,7 @@ public class AllergyService {
             return null;
         }
         else{
-            return allergy.getAllergyId();
+            return allergy.getPatientAllergyId();
         }
     }
 

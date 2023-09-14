@@ -13,11 +13,15 @@ import java.time.LocalDate;
 public class Allergy {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long allergyId;
+    private Long patientAllergyId;
 
+
+    private String allergyName;
     private Long patientId;
     private String reaction;
     private String severity;
     private LocalDate onset;
     private boolean activeAllergy;
+    private boolean drugAllergyFlag;
+    private int allergyId;
 }

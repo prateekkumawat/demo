@@ -2,7 +2,6 @@ package com.aoct.emr.patient.bl;
 
 import com.aoct.emr.appointment.UiResponse.AppointmentUiResponse;
 import com.aoct.emr.appointment.bl.AppointmentBl;
-import com.aoct.emr.appointment.service.AppointmentService;
 import com.aoct.emr.patient.entity.Allergy;
 import com.aoct.emr.patient.entity.PatientEntity;
 import com.aoct.emr.patient.entity.PatientVitals;
@@ -25,8 +24,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class PatientBl {
@@ -123,8 +122,8 @@ public class PatientBl {
     public Long addAllergy(AllergyUiRequest allergyUiRequest) {
         Allergy a= AllergyHelper.convertAllergyUiRequest(allergyUiRequest);
 
-        Long allergyId=allergyService.addAllergy(a);
-        return allergyId;
+        Long patientAllergyId=allergyService.addAllergy(a);
+        return patientAllergyId;
     }
 
     public List<AllergyUiResponse> getPatientAllergy(Long patientId) {
@@ -134,8 +133,10 @@ public class PatientBl {
     }
 
     public Long addVitalsForPatient(PatientVitalsUiRequest patientVitalsUiRequest) {
+
         // String bmi=PatientVitalsHelper.bmiCalculator(patientVitalsUiRequest.getHeight(),patientVitalsUiRequest.getWeight());
         // patientVitalsUiRequest.setBmi(bmi);
+
         PatientVitals v= PatientVitalsHelper.convertPatientVitalsUiRequest(patientVitalsUiRequest);
 
         Long vitalsId=patientVitalsService.addVitalsForPatient(v);
@@ -145,7 +146,9 @@ public class PatientBl {
     public Map<LocalDate,PatientVitalsUiResponse> getVitalsForPatient(Long patientId) {
         List<PatientVitals> vitalslist=patientVitalsService.getVitalsForPatient(patientId);
         Map<LocalDate,PatientVitalsUiResponse> responses=PatientVitalsHelper.convertPatientVitalsListUiResponse(vitalslist);
+
          List<Map.Entry<LocalDate, PatientVitalsUiResponse>> entryList = new ArrayList<>(responses.entrySet());
+
         Collections.sort(entryList, (entry1, entry2) -> entry2.getKey().compareTo(entry1.getKey()));
 
         Map<LocalDate, PatientVitalsUiResponse> sortedMap = entryList.stream()
@@ -153,6 +156,18 @@ public class PatientBl {
 
 
         return sortedMap;
+
+    }
+
+    public Map<Integer, String> getAllAllergy() {
+        Map<Integer,String> hm=new HashMap<>();
+        hm.put(1,"Penicillin");
+        hm.put(2,"Pollen");
+        hm.put(3,"Sand");
+        hm.put(4,"FS Shampoo");
+        return hm;
+
+
     }
 
 
