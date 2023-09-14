@@ -36,7 +36,9 @@ public class PatientVitalsHelper {
         response.setPulseRate(v.getPulseRate());
         response.setO2Saturation(v.getO2Saturation());
         response.setRespirationRate(v.getRespirationRate());
-//        String bmi=bmiCalculator(v.getHeight(),v.getWeight());
+
+        // String bmi=bmiCalculator(v.getHeight(),v.getWeight());
+
         response.setBmi(v.getBmi());
 
         return response;

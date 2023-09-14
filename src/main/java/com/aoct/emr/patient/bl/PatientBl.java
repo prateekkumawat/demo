@@ -19,6 +19,9 @@ import com.aoct.emr.patient.utility.PatientHelper;
 import com.aoct.emr.patient.utility.PatientVitalsHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -130,8 +133,10 @@ public class PatientBl {
     }
 
     public Long addVitalsForPatient(PatientVitalsUiRequest patientVitalsUiRequest) {
-//        String bmi=PatientVitalsHelper.bmiCalculator(patientVitalsUiRequest.getHeight(),patientVitalsUiRequest.getWeight());
-//        patientVitalsUiRequest.setBmi(bmi);
+
+        // String bmi=PatientVitalsHelper.bmiCalculator(patientVitalsUiRequest.getHeight(),patientVitalsUiRequest.getWeight());
+        // patientVitalsUiRequest.setBmi(bmi);
+
         PatientVitals v= PatientVitalsHelper.convertPatientVitalsUiRequest(patientVitalsUiRequest);
 
         Long vitalsId=patientVitalsService.addVitalsForPatient(v);
@@ -142,9 +147,8 @@ public class PatientBl {
         List<PatientVitals> vitalslist=patientVitalsService.getVitalsForPatient(patientId);
         Map<LocalDate,PatientVitalsUiResponse> responses=PatientVitalsHelper.convertPatientVitalsListUiResponse(vitalslist);
 
+         List<Map.Entry<LocalDate, PatientVitalsUiResponse>> entryList = new ArrayList<>(responses.entrySet());
 
-
-        List<Map.Entry<LocalDate, PatientVitalsUiResponse>> entryList = new ArrayList<>(responses.entrySet());
         Collections.sort(entryList, (entry1, entry2) -> entry2.getKey().compareTo(entry1.getKey()));
 
         Map<LocalDate, PatientVitalsUiResponse> sortedMap = entryList.stream()
@@ -152,6 +156,7 @@ public class PatientBl {
 
 
         return sortedMap;
+
     }
 
     public Map<Integer, String> getAllAllergy() {
@@ -161,6 +166,7 @@ public class PatientBl {
         hm.put(3,"Sand");
         hm.put(4,"FS Shampoo");
         return hm;
+
 
     }
 
