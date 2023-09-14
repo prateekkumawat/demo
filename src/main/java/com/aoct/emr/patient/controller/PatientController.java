@@ -72,4 +72,9 @@ public class PatientController {
 		return bl.getVitalsForPatient(patientId);
 	}
 
+	@GetMapping ("/getAllAllergy")
+	public Map<Integer,String> getAllAllergy(){
+		return  bl.getAllAllergy();
+	}
+
 }
