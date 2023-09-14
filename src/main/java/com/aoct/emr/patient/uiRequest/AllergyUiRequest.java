@@ -14,5 +14,5 @@ public class AllergyUiRequest {
     private LocalDate onset;
     private boolean activeAllergy;
     private boolean drugAllergyFlag;
-    private String allergyName;
+    private String searchAllergy;
 }

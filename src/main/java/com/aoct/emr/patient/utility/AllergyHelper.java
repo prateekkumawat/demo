@@ -19,7 +19,7 @@ public class AllergyHelper {
         a.setActiveAllergy(request.isActiveAllergy());
         a.setAllergyId(request.getAllergyId());
         a.setDrugAllergyFlag(request.isDrugAllergyFlag());
-        a.setAllergyName(request.getAllergyName());
+        a.setSearchAllergy(request.getSearchAllergy());
         return a;
     }
 
@@ -33,7 +33,7 @@ public class AllergyHelper {
         response.setActiveAllergy(allergy.isActiveAllergy());
         response.setPatientAllergyId(allergy.getPatientAllergyId());
         response.setDrugAllergyFlag(allergy.isDrugAllergyFlag());
-        response.setAllergyName(allergy.getAllergyName());
+        response.setSearchAllergy(allergy.getSearchAllergy());
         return response;
     }
 

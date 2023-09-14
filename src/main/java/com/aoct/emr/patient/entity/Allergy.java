@@ -16,7 +16,7 @@ public class Allergy {
     private Long patientAllergyId;
 
 
-    private String allergyName;
+    private String searchAllergy;
     private Long patientId;
     private String reaction;
     private String severity;
