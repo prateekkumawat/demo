@@ -16,7 +16,7 @@ public class AllergyHelper {
         a.setOnset(request.getOnset());
         a.setReaction(request.getReaction());
         a.setSeverity(request.getSeverity());
-        a.setActiveAllergy(request.isActiveAllergy());
+        a.setActiveAllergy(true);
         a.setAllergyId(request.getAllergyId());
         a.setDrugAllergyFlag(request.isDrugAllergyFlag());
         a.setSearchAllergy(request.getSearchAllergy());
