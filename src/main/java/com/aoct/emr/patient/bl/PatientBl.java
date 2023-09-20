@@ -5,18 +5,23 @@ import com.aoct.emr.appointment.bl.AppointmentBl;
 import com.aoct.emr.patient.entity.Allergy;
 import com.aoct.emr.patient.entity.PatientEntity;
 import com.aoct.emr.patient.entity.PatientVitals;
+import com.aoct.emr.patient.entity.PrescriptionEntity;
 import com.aoct.emr.patient.service.AllergyService;
 import com.aoct.emr.patient.service.PatientService;
 import com.aoct.emr.patient.service.PatientVitalsService;
+import com.aoct.emr.patient.service.PrescriptionService;
 import com.aoct.emr.patient.uiRequest.AllergyUiRequest;
 import com.aoct.emr.patient.uiRequest.PatientUiRequest;
 import com.aoct.emr.patient.uiRequest.PatientVitalsUiRequest;
+import com.aoct.emr.patient.uiRequest.PrescriptionUiRequest;
 import com.aoct.emr.patient.uiResponse.AllergyUiResponse;
 import com.aoct.emr.patient.uiResponse.PatientUiResponse;
 import com.aoct.emr.patient.uiResponse.PatientVitalsUiResponse;
+import com.aoct.emr.patient.uiResponse.PrescriptionUiResponse;
 import com.aoct.emr.patient.utility.AllergyHelper;
 import com.aoct.emr.patient.utility.PatientHelper;
 import com.aoct.emr.patient.utility.PatientVitalsHelper;
+import com.aoct.emr.patient.utility.PrescriptionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.time.LocalDate;
@@ -42,6 +47,9 @@ public class PatientBl {
 
     @Autowired
     PatientVitalsService patientVitalsService;
+
+    @Autowired
+    PrescriptionService prescriptionService;
 
 
 
@@ -168,6 +176,18 @@ public class PatientBl {
         return hm;
 
 
+    }
+
+    public Long addPrescription(PrescriptionUiRequest prescription) {
+        PrescriptionEntity p= PrescriptionHelper.convertPrescriptionUiRequest(prescription);
+        Long prescriptionId= prescriptionService.addPrescription(p);
+        return prescriptionId;
+    }
+
+    public List<PrescriptionUiResponse> getPrescriptionByPatientId(Long patientId) {
+        List<PrescriptionEntity> prescriptions=prescriptionService.getPrescriptionByPatientId(patientId);
+        List<PrescriptionUiResponse> listOfPrescription=PrescriptionHelper.convertListOfPrescriptionUiResponse(prescriptions);
+        return listOfPrescription;
     }
 
 
