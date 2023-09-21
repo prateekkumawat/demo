@@ -1,11 +1,13 @@
 package com.aoct.emr.appointment.UiResponse;
 
+import com.aoct.emr.appointment.entity.AppointmentEntity;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Component
 @Getter
@@ -24,4 +26,6 @@ public class AppointmentUiResponse {
     private LocalDate scheduleDate;
     private LocalTime scheduleStartTime;
     private LocalTime scheduleEndTime;
+
+
 }

@@ -2,6 +2,9 @@ package com.aoct.emr.patient.bl;
 
 import com.aoct.emr.appointment.UiResponse.AppointmentUiResponse;
 import com.aoct.emr.appointment.bl.AppointmentBl;
+import com.aoct.emr.appointment.entity.AppointmentEntity;
+import com.aoct.emr.appointment.service.AppointmentService;
+import com.aoct.emr.appointment.utility.AppointmentHelper;
 import com.aoct.emr.patient.entity.Allergy;
 import com.aoct.emr.patient.entity.PatientEntity;
 import com.aoct.emr.patient.entity.PatientVitals;
@@ -50,6 +53,9 @@ public class PatientBl {
 
     @Autowired
     PrescriptionService prescriptionService;
+
+    @Autowired
+    AppointmentService appointmentService;
 
 
 
@@ -195,6 +201,15 @@ public class PatientBl {
         PrescriptionUiResponse response=PrescriptionHelper.convertPrescriptionUiresponse(p);
         return response;
 
+    }
+
+    public List<AppointmentUiResponse> getAppointmentByPatientId(Long patientId) {
+        List<AppointmentEntity> appointments = appointmentService.getAppointmentByPatientId(patientId);
+        List<AppointmentUiResponse> responses = appointments.stream()
+                .map(AppointmentHelper::convertToBookAppointmentUiResponse)
+                .collect(Collectors.toList());
+
+        return responses;
     }
 
 

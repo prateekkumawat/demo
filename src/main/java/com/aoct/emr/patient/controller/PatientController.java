@@ -1,5 +1,6 @@
 package com.aoct.emr.patient.controller;
 
+import com.aoct.emr.appointment.UiResponse.AppointmentUiResponse;
 import com.aoct.emr.patient.bl.PatientBl;
 import com.aoct.emr.patient.uiRequest.AllergyUiRequest;
 import com.aoct.emr.patient.uiRequest.PatientUiRequest;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -95,5 +97,19 @@ public class PatientController {
 		return bl.getPrescriptionById(prescriptionId);
 	}
 
+	@GetMapping("/getAllAppointmentByPatientId/{patientId}")
+	public List<AppointmentUiResponse> getAllAppointmentsByPatientId(@PathVariable Long patientId) {
+
+		List<AppointmentUiResponse> appointments = bl.getAppointmentByPatientId(patientId);
+		appointments.sort(Comparator.comparing(AppointmentUiResponse::getSpeciality));
+		return appointments;
+	}
+
+	@GetMapping("/getAllAppointmentByPatientIdDateSorted/{patientId}")
+	public List<AppointmentUiResponse> getAllAppointmentsByPatientIdDateSorted(@PathVariable Long patientId) {
+		List<AppointmentUiResponse> appointments = bl.getAppointmentByPatientId(patientId);
+		appointments.sort(Comparator.comparing(AppointmentUiResponse::getScheduleDate));
+		return appointments;
+	}
 
 }
