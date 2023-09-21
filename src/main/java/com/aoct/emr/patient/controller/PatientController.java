@@ -90,6 +90,10 @@ public class PatientController {
 	public List<PrescriptionUiResponse> getPrescriptionByPatientId(@PathVariable Long patientId){
 		return bl.getPrescriptionByPatientId(patientId);
 	}
+	@GetMapping("/getPrescriptionById/{prescriptionId}")
+	public PrescriptionUiResponse getPrescriptionById(@PathVariable Long prescriptionId){
+		return bl.getPrescriptionById(prescriptionId);
+	}
 
 
 }

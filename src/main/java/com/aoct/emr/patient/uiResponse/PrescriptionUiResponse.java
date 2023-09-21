@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public class PrescriptionUiResponse {
     private Long prescriptionId;
 
-    private Long drugId;
+    private String drugId;
     private Long patientId;
     private String direction;
     private String quantity;
@@ -17,4 +17,7 @@ public class PrescriptionUiResponse {
     private String duration;
     private LocalDate earliestFillDate;
     private String additionalRefills;
+    private boolean activeFlag;
+    private boolean prescribedFlag;
+    private String drugName;
 }

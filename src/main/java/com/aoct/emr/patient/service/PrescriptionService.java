@@ -27,4 +27,8 @@ public class PrescriptionService {
     public List<PrescriptionEntity> getPrescriptionByPatientId(Long patientId) {
         return repo.getPrescriptionByPatientId(patientId);
     }
+
+    public PrescriptionEntity getPrescriptionById(Long prescriptionId) {
+        return repo.getReferenceById(prescriptionId);
+    }
 }

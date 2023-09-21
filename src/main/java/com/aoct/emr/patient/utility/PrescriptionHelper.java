@@ -15,11 +15,14 @@ public class PrescriptionHelper {
         p.setDirection(prescription.getDirection());
         p.setDispense(prescription.getDispense());
         p.setDuration(prescription.getDuration());
-        p.setWhen(prescription.getWhen());
+        p.setWhenString(prescription.getWhen());
         p.setFrequency(prescription.getFrequency());
         p.setQuantity(prescription.getQuantity());
         p.setAdditionalRefills(prescription.getAdditionalRefills());
         p.setEarliestFillDate(prescription.getEarliestFillDate());
+        p.setDrugName(prescription.getDrugName());
+        p.setActiveFlag(prescription.isActiveFlag());
+        p.setPrescribedFlag(prescription.isPrescribedFlag());
 
         return p;
     }
@@ -32,11 +35,15 @@ public class PrescriptionHelper {
         response.setDirection(p.getDirection());
         response.setDispense(p.getDispense());
         response.setDuration(p.getDuration());
-        response.setWhen(p.getWhen());
+        response.setWhen(p.getWhenString());
         response.setFrequency(p.getFrequency());
         response.setQuantity(p.getQuantity());
         response.setAdditionalRefills(p.getAdditionalRefills());
-        p.setEarliestFillDate(p.getEarliestFillDate());
+        response.setEarliestFillDate(p.getEarliestFillDate());
+        response.setDrugName(p.getDrugName());
+        response.setActiveFlag(p.isActiveFlag());
+        response.setPrescribedFlag(p.isPrescribedFlag());
+
         return response;
 
     }

@@ -190,6 +190,13 @@ public class PatientBl {
         return listOfPrescription;
     }
 
+    public PrescriptionUiResponse getPrescriptionById(Long prescriptionId) {
+        PrescriptionEntity p=prescriptionService.getPrescriptionById(prescriptionId);
+        PrescriptionUiResponse response=PrescriptionHelper.convertPrescriptionUiresponse(p);
+        return response;
+
+    }
+
 
 
 	/*	will integrate this once the doctor module is ready
