@@ -1,18 +1,22 @@
 package com.aoct.emr.patient.controller;
 
+import com.aoct.emr.appointment.UiResponse.AppointmentUiResponse;
 import com.aoct.emr.patient.bl.PatientBl;
 import com.aoct.emr.patient.uiRequest.AllergyUiRequest;
 import com.aoct.emr.patient.uiRequest.PatientUiRequest;
 import com.aoct.emr.patient.uiRequest.PatientVitalsUiRequest;
+import com.aoct.emr.patient.uiRequest.PrescriptionUiRequest;
 import com.aoct.emr.patient.uiResponse.AllergyUiResponse;
 import com.aoct.emr.patient.uiResponse.PatientUiResponse;
 import com.aoct.emr.patient.uiResponse.PatientVitalsUiResponse;
+import com.aoct.emr.patient.uiResponse.PrescriptionUiResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -60,6 +64,11 @@ public class PatientController {
 		return bl.getPatientAllergy(patientId);
 	}
 
+	@GetMapping ("/getAllAllergy")
+	public Map<Integer,String> getAllAllergy(){
+		return  bl.getAllAllergy();
+	}
+
 	//adding vitals for Patient
 
 	@PostMapping("/addVitalsForPatient")
@@ -72,9 +81,35 @@ public class PatientController {
 		return bl.getVitalsForPatient(patientId);
 	}
 
-	@GetMapping ("/getAllAllergy")
-	public Map<Integer,String> getAllAllergy(){
-		return  bl.getAllAllergy();
+	//adding prescription for patient
+
+	@PostMapping("/addPrescription")
+	public Long addPrescription(@RequestBody PrescriptionUiRequest prescription){
+		return bl.addPrescription(prescription);
+	}
+
+	@GetMapping("/getPrescriptionByPatientId/{patientId}")
+	public List<PrescriptionUiResponse> getPrescriptionByPatientId(@PathVariable Long patientId){
+		return bl.getPrescriptionByPatientId(patientId);
+	}
+	@GetMapping("/getPrescriptionById/{prescriptionId}")
+	public PrescriptionUiResponse getPrescriptionById(@PathVariable Long prescriptionId){
+		return bl.getPrescriptionById(prescriptionId);
+	}
+
+	@GetMapping("/getAllAppointmentByPatientId/{patientId}")
+	public List<AppointmentUiResponse> getAllAppointmentsByPatientId(@PathVariable Long patientId) {
+
+		List<AppointmentUiResponse> appointments = bl.getAppointmentByPatientId(patientId);
+		appointments.sort(Comparator.comparing(AppointmentUiResponse::getSpeciality));
+		return appointments;
+	}
+
+	@GetMapping("/getAllAppointmentByPatientIdDateSorted/{patientId}")
+	public List<AppointmentUiResponse> getAllAppointmentsByPatientIdDateSorted(@PathVariable Long patientId) {
+		List<AppointmentUiResponse> appointments = bl.getAppointmentByPatientId(patientId);
+		appointments.sort(Comparator.comparing(AppointmentUiResponse::getScheduleDate));
+		return appointments;
 	}
 
 }

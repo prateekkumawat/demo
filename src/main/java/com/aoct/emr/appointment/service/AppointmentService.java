@@ -54,4 +54,5 @@ public class AppointmentService {
 	public List<AppointmentEntity> getProvideAppointmentsByMonth(Long providerId, int month, int year) {
 		return repo.getProviderAppointmentByMonth(providerId,month,year);
 	}
+
 }
