@@ -5,26 +5,11 @@ import com.aoct.emr.appointment.bl.AppointmentBl;
 import com.aoct.emr.appointment.entity.AppointmentEntity;
 import com.aoct.emr.appointment.service.AppointmentService;
 import com.aoct.emr.appointment.utility.AppointmentHelper;
-import com.aoct.emr.patient.entity.Allergy;
-import com.aoct.emr.patient.entity.PatientEntity;
-import com.aoct.emr.patient.entity.PatientVitals;
-import com.aoct.emr.patient.entity.PrescriptionEntity;
-import com.aoct.emr.patient.service.AllergyService;
-import com.aoct.emr.patient.service.PatientService;
-import com.aoct.emr.patient.service.PatientVitalsService;
-import com.aoct.emr.patient.service.PrescriptionService;
-import com.aoct.emr.patient.uiRequest.AllergyUiRequest;
-import com.aoct.emr.patient.uiRequest.PatientUiRequest;
-import com.aoct.emr.patient.uiRequest.PatientVitalsUiRequest;
-import com.aoct.emr.patient.uiRequest.PrescriptionUiRequest;
-import com.aoct.emr.patient.uiResponse.AllergyUiResponse;
-import com.aoct.emr.patient.uiResponse.PatientUiResponse;
-import com.aoct.emr.patient.uiResponse.PatientVitalsUiResponse;
-import com.aoct.emr.patient.uiResponse.PrescriptionUiResponse;
-import com.aoct.emr.patient.utility.AllergyHelper;
-import com.aoct.emr.patient.utility.PatientHelper;
-import com.aoct.emr.patient.utility.PatientVitalsHelper;
-import com.aoct.emr.patient.utility.PrescriptionHelper;
+import com.aoct.emr.patient.entity.*;
+import com.aoct.emr.patient.service.*;
+import com.aoct.emr.patient.uiRequest.*;
+import com.aoct.emr.patient.uiResponse.*;
+import com.aoct.emr.patient.utility.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.time.LocalDate;
@@ -56,6 +41,9 @@ public class PatientBl {
 
     @Autowired
     AppointmentService appointmentService;
+
+    @Autowired
+    VaccineService vaccineService;
 
 
 
@@ -223,7 +211,50 @@ public class PatientBl {
         return response;
     }
 
+    public Long addVaccine(VaccineUiRequest request) {
+       String vaccineNumber= request.getVaccineNumber();
+      boolean successFlag= request.isSuccessFlag();
+      String vaccineInfo="";
+        if(successFlag)
+        {
+            vaccineInfo=vaccineInfo+vaccineNumber+":"+"Success|";
+        }
+        else
+        {
+            vaccineInfo=vaccineInfo+vaccineNumber+":"+"Failure|";
+        }
+        VaccineEntity v= VaccineHelper.convertVaccineUiRequest(request);
+        v.setVaccineInfo(vaccineInfo);
+        Long vaccineId=vaccineService.addVaccine(v);
+        return vaccineId;
+    }
 
+    public Long updateVaccine(VaccineUiRequest request) {
+       Long vaccineId= request.getVaccinationId();
+      VaccineEntity vaccineEntity= vaccineService.getByVaccinationId(vaccineId);
+     String vaccineInfo= vaccineEntity.getVaccineInfo();
+     String vaccineNumber=request.getVaccineNumber();
+        boolean successFlag= request.isSuccessFlag();
+
+        if(successFlag)
+        {
+            vaccineInfo=vaccineInfo+vaccineNumber+":"+"Success|";
+        }
+        else
+        {
+            vaccineInfo=vaccineInfo+vaccineNumber+":"+"Failure|";
+        }
+        vaccineEntity.setVaccineInfo(vaccineInfo);
+
+       return vaccineService.addVaccine(vaccineEntity);
+    }
+
+    public List<VaccineUiResponse> getVaccinesByPatientId(Long patientId) {
+        List<VaccineEntity> vaccines=vaccineService.getVaccinesByPatientId(patientId);
+
+        List<VaccineUiResponse> responseList=VaccineHelper.convertVaccineListUiResponse(vaccines);
+    return responseList;
+}
 
 	/*	will integrate this once the doctor module is ready
 

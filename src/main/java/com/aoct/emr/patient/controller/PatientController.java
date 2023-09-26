@@ -2,14 +2,8 @@ package com.aoct.emr.patient.controller;
 
 import com.aoct.emr.appointment.UiResponse.AppointmentUiResponse;
 import com.aoct.emr.patient.bl.PatientBl;
-import com.aoct.emr.patient.uiRequest.AllergyUiRequest;
-import com.aoct.emr.patient.uiRequest.PatientUiRequest;
-import com.aoct.emr.patient.uiRequest.PatientVitalsUiRequest;
-import com.aoct.emr.patient.uiRequest.PrescriptionUiRequest;
-import com.aoct.emr.patient.uiResponse.AllergyUiResponse;
-import com.aoct.emr.patient.uiResponse.PatientUiResponse;
-import com.aoct.emr.patient.uiResponse.PatientVitalsUiResponse;
-import com.aoct.emr.patient.uiResponse.PrescriptionUiResponse;
+import com.aoct.emr.patient.uiRequest.*;
+import com.aoct.emr.patient.uiResponse.*;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -105,6 +99,10 @@ public class PatientController {
 	public List<PrescriptionUiResponse> getAllPrescriptions(){
 		return bl.getAllPrescriptions();
 	}
+
+
+
+
 	@GetMapping("/getAllAppointmentByPatientId/{patientId}")
 	public List<AppointmentUiResponse> getAllAppointmentsByPatientId(@PathVariable Long patientId) {
 
@@ -118,6 +116,26 @@ public class PatientController {
 		List<AppointmentUiResponse> appointments = bl.getAppointmentByPatientId(patientId);
 		appointments.sort(Comparator.comparing(AppointmentUiResponse::getScheduleDate));
 		return appointments;
+	}
+
+
+	//  Api's for adding vaccines and injections
+
+	@PostMapping("/addVaccine")
+	public Long addVaccine(@RequestBody VaccineUiRequest request){
+		if(request.getVaccinationId()!=null){
+			return bl.updateVaccine(request);
+		}
+		else{
+			return bl.addVaccine(request);
+		}
+
+
+	}
+
+	@GetMapping("/getVaccinesByPatientId/{patientId}")
+	public List<VaccineUiResponse> getVaccinesByPatientId(@PathVariable Long patientId){
+		return bl.getVaccinesByPatientId(patientId);
 	}
 
 
