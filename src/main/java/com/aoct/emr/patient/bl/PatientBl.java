@@ -45,6 +45,9 @@ public class PatientBl {
     @Autowired
     VaccineService vaccineService;
 
+    @Autowired
+    InjectionService injectionService;
+
 
 
 
@@ -255,6 +258,18 @@ public class PatientBl {
         List<VaccineUiResponse> responseList=VaccineHelper.convertVaccineListUiResponse(vaccines);
     return responseList;
 }
+
+    public Long addInjection(InjectionUiRequest request) {
+        InjectionEntity i=InjectionHelper.convertInjectionUiRequest(request);
+        Long injectionId=injectionService.addInjection(i);
+        return injectionId;
+    }
+
+    public List<InjectionUiResponse> getInjectionsByPatientId(Long patientId) {
+        List<InjectionEntity> injections=injectionService.getInjectionsByPatientId(patientId);
+        List<InjectionUiResponse> responses=InjectionHelper.convertInjectionListUiResponse(injections);
+        return responses;
+    }
 
 	/*	will integrate this once the doctor module is ready
 

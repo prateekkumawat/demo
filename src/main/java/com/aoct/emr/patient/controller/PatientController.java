@@ -138,5 +138,15 @@ public class PatientController {
 		return bl.getVaccinesByPatientId(patientId);
 	}
 
+	@PostMapping("/addInjection")
+	public Long addInjection(@RequestBody InjectionUiRequest request){
+		return bl.addInjection(request);
+	}
+
+	@GetMapping("/getInjectionsByPatientId/{patientId}")
+	public List<InjectionUiResponse> getInjectionsByPatientId(@PathVariable Long patientId){
+		return bl.getInjectionsByPatientId(patientId);
+	}
+
 
 }
