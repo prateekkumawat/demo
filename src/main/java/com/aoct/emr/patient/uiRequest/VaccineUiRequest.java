@@ -26,5 +26,9 @@ public class VaccineUiRequest {
     private String vaccineName;
     private String ndc;
     private  String cvx;
+    private String vaccineInfoFlag;
+    private String source;
+    private String refusalReason;
+    private String refusalNote;
 
 }

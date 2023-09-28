@@ -22,4 +22,5 @@ public class InjectionUiResponse {
     private String duration;
     private String durationUnits;
     private String notes;
+    private String injectionInfoFlag;
 }

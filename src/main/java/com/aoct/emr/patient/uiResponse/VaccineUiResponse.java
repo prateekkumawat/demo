@@ -29,5 +29,9 @@ public class VaccineUiResponse {
     private String ndc;
     private  String cvx;
     private Map<Integer, List<String>> vaccineInfo;
+    private String vaccineInfoFlag;
+    private String source;
+    private String refusalReason;
+    private String refusalNote;
 
 }

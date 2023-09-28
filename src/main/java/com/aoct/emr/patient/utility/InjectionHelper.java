@@ -25,6 +25,7 @@ public class InjectionHelper {
         i.setDuration(request.getDuration());
         i.setDurationUnits(request.getDurationUnits());
         i.setNotes(request.getNotes());
+        i.setInjectionInfoFlag(request.getInjectionInfoFlag());
         return i;
     }
     public static InjectionUiResponse convertInjectionUiResponse(InjectionEntity i){
@@ -45,6 +46,7 @@ public class InjectionHelper {
         response.setDuration(i.getDuration());
         response.setDurationUnits(i.getDurationUnits());
         response.setNotes(i.getNotes());
+        response.setInjectionInfoFlag(i.getInjectionInfoFlag());
         return response;
 
     }
