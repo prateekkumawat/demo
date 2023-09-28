@@ -31,6 +31,10 @@ public class VaccineHelper {
         v.setVaccineName(request.getVaccineName());
         v.setNdc(request.getNdc());
         v.setCvx(request.getCvx());
+        v.setVaccineInfoFlag(request.getVaccineInfoFlag());
+        v.setSource(request.getSource());
+        v.setRefusalNote(request.getRefusalNote());
+        v.setRefusalReason(request.getRefusalReason());
         return v;
 
     }
@@ -56,7 +60,10 @@ public class VaccineHelper {
         response.setVaccineName(v.getVaccineName());
         response.setCvx(v.getCvx());
         response.setNdc(v.getNdc());
-
+        response.setVaccineInfoFlag(v.getVaccineInfoFlag());
+        response.setSource(v.getSource());
+        response.setRefusalNote(v.getRefusalNote());
+        response.setRefusalReason(v.getRefusalReason());
 
         String[] vaccineInfoParts=v.getVaccineInfo().split("\\|");
 

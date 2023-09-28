@@ -29,5 +29,6 @@ public class InjectionEntity {
     private String duration;
     private String durationUnits;
     private String notes;
+    private String injectionInfoFlag;
 
 }
