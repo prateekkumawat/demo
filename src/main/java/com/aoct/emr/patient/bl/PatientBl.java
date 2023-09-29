@@ -6,6 +6,7 @@ import com.aoct.emr.appointment.entity.AppointmentEntity;
 import com.aoct.emr.appointment.service.AppointmentService;
 import com.aoct.emr.appointment.utility.AppointmentHelper;
 import com.aoct.emr.patient.entity.*;
+import com.aoct.emr.patient.repository.InjectionTableRepo;
 import com.aoct.emr.patient.repository.VaccineTableRepo;
 import com.aoct.emr.patient.service.*;
 import com.aoct.emr.patient.uiRequest.*;
@@ -52,7 +53,8 @@ public class PatientBl {
     @Autowired
     VaccineTableRepo vaccineTableRepo;
 
-
+    @Autowired
+    InjectionTableRepo injectionTableRepo;
 
 
 //    @Autowired
@@ -278,6 +280,10 @@ public class PatientBl {
 
     public List<VaccineTable> getAllVaccines() {
         return vaccineTableRepo.findAll();
+    }
+
+    public List<InjectionTable> getAllInjections() {
+        return injectionTableRepo.findAll();
     }
 
 	/*	will integrate this once the doctor module is ready

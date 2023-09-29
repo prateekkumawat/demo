@@ -2,6 +2,7 @@ package com.aoct.emr.patient.controller;
 
 import com.aoct.emr.appointment.UiResponse.AppointmentUiResponse;
 import com.aoct.emr.patient.bl.PatientBl;
+import com.aoct.emr.patient.entity.InjectionTable;
 import com.aoct.emr.patient.entity.VaccineTable;
 import com.aoct.emr.patient.uiRequest.*;
 import com.aoct.emr.patient.uiResponse.*;
@@ -152,6 +153,11 @@ public class PatientController {
 	@GetMapping("/getAllVaccines")
 	public List<VaccineTable> getAllVaccines(){
 		return bl.getAllVaccines();
+	}
+
+	@GetMapping("/getAllInjections")
+	public List<InjectionTable> getAllInjections(){
+		return bl.getAllInjections();
 	}
 
 
