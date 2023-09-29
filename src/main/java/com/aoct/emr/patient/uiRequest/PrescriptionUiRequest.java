@@ -19,4 +19,5 @@ public class PrescriptionUiRequest {
     private boolean activeFlag;
     private boolean prescribedFlag;
     private String drugName;
+    private boolean supplementsFlag;
 }

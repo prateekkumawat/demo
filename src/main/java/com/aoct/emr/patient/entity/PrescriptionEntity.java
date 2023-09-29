@@ -28,4 +28,5 @@ public class PrescriptionEntity {
     private boolean activeFlag;
     private boolean prescribedFlag;
     private String drugName;
+    private boolean supplementsFlag;
 }

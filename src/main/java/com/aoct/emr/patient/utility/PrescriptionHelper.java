@@ -23,6 +23,7 @@ public class PrescriptionHelper {
         p.setDrugName(prescription.getDrugName());
         p.setActiveFlag(prescription.isActiveFlag());
         p.setPrescribedFlag(prescription.isPrescribedFlag());
+        p.setSupplementsFlag(prescription.isSupplementsFlag());
 
         return p;
     }
@@ -43,6 +44,7 @@ public class PrescriptionHelper {
         response.setDrugName(p.getDrugName());
         response.setActiveFlag(p.isActiveFlag());
         response.setPrescribedFlag(p.isPrescribedFlag());
+        response.setSupplementsFlag(p.isSupplementsFlag());
 
         return response;
 
