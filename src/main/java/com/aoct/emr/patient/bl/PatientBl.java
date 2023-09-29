@@ -251,6 +251,8 @@ public class PatientBl {
             vaccineInfo=vaccineInfo+vaccineNumber+":"+"Failure|";
         }
         vaccineEntity.setVaccineInfo(vaccineInfo);
+        vaccineEntity.setVaccineNumber(vaccineNumber);
+
 
        return vaccineService.addVaccine(vaccineEntity);
     }
