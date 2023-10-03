@@ -56,6 +56,9 @@ public class PatientBl {
     @Autowired
     InjectionTableRepo injectionTableRepo;
 
+    @Autowired
+    LabsAndProceduresService labsAndProceduresService;
+
 
 //    @Autowired
 //    ReadJsonFileService jsonService;
@@ -284,6 +287,18 @@ public class PatientBl {
 
     public List<InjectionTable> getAllInjections() {
         return injectionTableRepo.findAll();
+    }
+
+    public Long addLabsAndProcedures(LabsAndProceduresUiRequest request) {
+        LabsAndProceduresEntity labsAndProcedures=LabsAndProceduresHelper.convertLabsAndProceduresUiRequest(request);
+        Long labsAndProceduresId=labsAndProceduresService.addLabsAndProcedures(labsAndProcedures);
+        return labsAndProceduresId;
+    }
+
+    public List<LabsAndProceduresUiResponse> getLabsAndProceduresByPatientId(Long patientId) {
+        List<LabsAndProceduresEntity> labs=labsAndProceduresService.getLabsAndProceduresByPatientId(patientId);
+        List<LabsAndProceduresUiResponse> responses=LabsAndProceduresHelper.convertListOfLabsAndProceduresUiResponse(labs);
+        return responses;
     }
 
 	/*	will integrate this once the doctor module is ready

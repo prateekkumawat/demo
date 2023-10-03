@@ -160,5 +160,16 @@ public class PatientController {
 		return bl.getAllInjections();
 	}
 
+    //api's for Labs and Procedures
+    @PostMapping("/addLabsAndProcedures")
+    public Long addLabsAndProcedures(@RequestBody LabsAndProceduresUiRequest request){
+        return bl.addLabsAndProcedures(request);
+    }
+
+	@GetMapping("/getLabsAndProceduresByPatientId/{patientId}")
+	public List<LabsAndProceduresUiResponse> getLabsAndProceduresByPatientId(@PathVariable Long patientId){
+		return bl.getLabsAndProceduresByPatientId(patientId);
+	}
+
 
 }
