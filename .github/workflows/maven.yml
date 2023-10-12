@@ -40,7 +40,7 @@ jobs:
       run: sudo kill -9 $(sudo lsof -t -i:8096) || true 
       
     - name: start Deploy Jar
-      run: sudo java -jar ${{ env.DEPOLY_JAR }} &
+      run: sudo java -jar /opt/target/EMR-0.0.1-SNAPSHOT.jar &
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
 #    - name: Update dependency graph
