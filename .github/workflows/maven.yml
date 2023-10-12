@@ -31,7 +31,6 @@ jobs:
     - name: Copy source folder to /opt
       run: sudo cp -r $GITHUB_WORKSPACE/* /opt/
 
-jobs:
   deploy:
 
     runs-on: self-hosted 
