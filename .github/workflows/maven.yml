@@ -38,7 +38,7 @@ jobs:
 
     steps: 
     - name: deploy job on server
-      run: java -jar 
+      run: sudo kill -9 `sudo lsof -t -i:8096` & sudo java -jar $DEPOLY_JAR &
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
 #    - name: Update dependency graph
